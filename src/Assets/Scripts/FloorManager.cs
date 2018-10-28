@@ -10,6 +10,9 @@ public class FloorManager : MonoBehaviour
     [SerializeField]
     private GameObject[] tiles;
 
+    [SerializeField]
+    private CameraMovement cameraMovement;
+
     public float TileSize
     {
         get
@@ -34,6 +37,7 @@ public class FloorManager : MonoBehaviour
     {
         string[] map = LoadMap();
 
+        Vector3 maxTile = Vector3.zero;
         Vector3 worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
         for (int i = 0; i < map.Length; ++i)
         {
@@ -42,8 +46,11 @@ public class FloorManager : MonoBehaviour
                 int tileIndex = map[i][j] - '0';
                 GameObject newTile = Instantiate(tiles[tileIndex]);
                 newTile.transform.position = new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0);
+                maxTile = newTile.transform.position;
             }
         }
+
+        cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
     }
 
     private string[] LoadMap()
