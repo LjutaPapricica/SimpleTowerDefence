@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class FloorManager : MonoBehaviour
@@ -29,15 +32,7 @@ public class FloorManager : MonoBehaviour
 
     private void CreateLevel()
     {
-        string[] map = new string[]
-        {
-            "1101110111001",
-            "0101010101001",
-            "0101010101001",
-            "0101010101001",
-            "0101010101001",
-            "0111011101111"
-        };
+        string[] map = LoadMap();
 
         Vector3 worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
         for (int i = 0; i < map.Length; ++i)
@@ -49,5 +44,11 @@ public class FloorManager : MonoBehaviour
                 newTile.transform.position = new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0);
             }
         }
+    }
+
+    private string[] LoadMap()
+    {
+        TextAsset mapAsset = Resources.Load("Level") as TextAsset;
+        return mapAsset.text.Split(Environment.NewLine.ToCharArray()).Where(i => !String.IsNullOrEmpty(i)).ToArray();
     }
 }
