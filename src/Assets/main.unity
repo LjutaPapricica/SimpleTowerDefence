@@ -144,6 +144,9 @@ MonoBehaviour:
   - {fileID: 1087303643181324, guid: 4693b5916cc56464bb3fc15ab3e55ce9, type: 2}
   - {fileID: 1319861693325660, guid: e509fb26af1382943a90141044036928, type: 2}
   cameraMovement: {fileID: 2032932862}
+  startObject: {fileID: 1623230014043010, guid: 2babaf1ba9dfea34692f4f37c32e3f23,
+    type: 2}
+  endObject: {fileID: 1543986746344940, guid: 944056045d3875948b6a4f4ae790b2fe, type: 2}
 --- !u!4 &25492066
 Transform:
   m_ObjectHideFlags: 0
