@@ -13,6 +13,7 @@ public class FloorManager : MonoBehaviour
     [SerializeField]
     private CameraMovement cameraMovement;
 
+    private Dictionary<Point, TileScript> tileScripts;
     public float TileSize
     {
         get
@@ -35,6 +36,7 @@ public class FloorManager : MonoBehaviour
 
     private void CreateLevel()
     {
+        tileScripts = new Dictionary<Point, TileScript>();
         string[] map = LoadMap();
 
         Vector3 maxTile = Vector3.zero;
@@ -44,12 +46,15 @@ public class FloorManager : MonoBehaviour
             for (int j = 0; j < map[0].Length; ++j)
             {
                 int tileIndex = map[i][j] - '0';
-                GameObject newTile = Instantiate(tiles[tileIndex]);
-                newTile.transform.position = new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0);
-                maxTile = newTile.transform.position;
+
+                TileScript newTile = Instantiate(tiles[tileIndex]).GetComponent<TileScript>();
+                newTile.Setup(new Point(j, i), new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0));
+
+                tileScripts.Add(new Point(j, i), newTile);
             }
         }
 
+        maxTile = tileScripts[new Point(map[0].Length - 1, map.Length - 1)].transform.position;
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
     }
 
