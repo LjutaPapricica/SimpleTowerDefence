@@ -34,5 +34,7 @@ public class TileScript : MonoBehaviour
     {
         this.point = point;
         transform.position = worldPoint;
+
+        FloorManager.Instance.TileScripts.Add(point, this);
     }
 }

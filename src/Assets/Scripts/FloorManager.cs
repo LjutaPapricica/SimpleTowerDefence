@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class FloorManager : MonoBehaviour
+public class FloorManager : Singleton<FloorManager>
 {
     [SerializeField]
     private GameObject[] tiles;
@@ -13,7 +13,15 @@ public class FloorManager : MonoBehaviour
     [SerializeField]
     private CameraMovement cameraMovement;
 
-    private Dictionary<Point, TileScript> tileScripts;
+    [SerializeField]
+    private GameObject startObject;
+    [SerializeField]
+    private GameObject endObject;
+
+    private Point start;
+    private Point finish;
+
+    public Dictionary<Point, TileScript> TileScripts;
     public float TileSize
     {
         get
@@ -36,7 +44,7 @@ public class FloorManager : MonoBehaviour
 
     private void CreateLevel()
     {
-        tileScripts = new Dictionary<Point, TileScript>();
+        TileScripts = new Dictionary<Point, TileScript>();
         string[] map = LoadMap();
 
         Vector3 maxTile = Vector3.zero;
@@ -49,18 +57,27 @@ public class FloorManager : MonoBehaviour
 
                 TileScript newTile = Instantiate(tiles[tileIndex]).GetComponent<TileScript>();
                 newTile.Setup(new Point(j, i), new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0));
-
-                tileScripts.Add(new Point(j, i), newTile);
             }
         }
 
-        maxTile = tileScripts[new Point(map[0].Length - 1, map.Length - 1)].transform.position;
+        maxTile = TileScripts[new Point(map[0].Length - 1, map.Length - 1)].transform.position;
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
+
+        SpawnPortals(map[0].Length);
     }
 
     private string[] LoadMap()
     {
         TextAsset mapAsset = Resources.Load("Level") as TextAsset;
         return mapAsset.text.Split(Environment.NewLine.ToCharArray()).Where(i => !String.IsNullOrEmpty(i)).ToArray();
+    }
+
+    private void SpawnPortals(int width)
+    {
+        start = new Point(0, 0);
+        finish = new Point(width - 1, 0);
+
+        Instantiate(startObject, TileScripts[start].transform.position, Quaternion.identity);
+        Instantiate(endObject, TileScripts[finish].transform.position, Quaternion.identity);
     }
 }
