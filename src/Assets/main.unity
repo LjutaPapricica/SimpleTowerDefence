@@ -140,7 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebcb3b3056a1cd4bb527fd819759fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 1087303643181324, guid: 4693b5916cc56464bb3fc15ab3e55ce9, type: 2}
+  tiles:
+  - {fileID: 1087303643181324, guid: 4693b5916cc56464bb3fc15ab3e55ce9, type: 2}
+  - {fileID: 1319861693325660, guid: e509fb26af1382943a90141044036928, type: 2}
 --- !u!4 &25492066
 Transform:
   m_ObjectHideFlags: 0

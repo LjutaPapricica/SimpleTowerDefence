@@ -5,7 +5,15 @@ using UnityEngine;
 public class FloorManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject tile;
+    private GameObject[] tiles;
+
+    public float TileSize
+    {
+        get
+        {
+            return tiles[0].GetComponent<SpriteRenderer>().bounds.size.x;
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -21,14 +29,24 @@ public class FloorManager : MonoBehaviour
 
     private void CreateLevel()
     {
-        float size = tile.GetComponent<SpriteRenderer>().bounds.size.x;
-        
-        for (int i = 0; i < 5; ++i)
+        string[] map = new string[]
         {
-            for (int j = 0; j < 5; ++j)
+            "1101110111001",
+            "0101010101001",
+            "0101010101001",
+            "0101010101001",
+            "0101010101001",
+            "0111011101111"
+        };
+
+        Vector3 worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
+        for (int i = 0; i < map.Length; ++i)
+        {
+            for (int j = 0; j < map[0].Length; ++j)
             {
-                GameObject newTile = Instantiate(tile);
-                newTile.transform.position = new Vector3(size * j, size * i, 0);
+                int tileIndex = map[i][j] - '0';
+                GameObject newTile = Instantiate(tiles[tileIndex]);
+                newTile.transform.position = new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0);
             }
         }
     }
