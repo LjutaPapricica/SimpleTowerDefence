@@ -31,6 +31,7 @@ public class Hover : Singleton<Hover>
 
     public void Deactivate()
     {
+        GameManager.Instance.ClickedButton = null;
         spriteRenderer.sprite = null;
     }
 }

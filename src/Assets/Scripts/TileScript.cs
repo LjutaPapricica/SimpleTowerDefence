@@ -20,10 +20,17 @@ public class TileScript : MonoBehaviour
     private Point gridPosition;
     private int type;
 
+    private Color32 redColor = new Color32(255, 118, 118, 255);
+    private Color32 greenColor = new Color32(96, 255, 92, 255);
+
+    private SpriteRenderer spriteRenderer;
+
+    public bool IsEmpty { get; set; }
+
     // Use this for initialization
     void Start()
     {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -35,31 +42,52 @@ public class TileScript : MonoBehaviour
     public void Setup(int type, Point point, Vector3 worldPoint)
     {
         this.type = type;
+        IsEmpty = true;
         gridPosition = point;
-        transform.position = worldPoint;
+        transform.position = worldPoint; 
 
         FloorManager.Instance.TileScripts.Add(point, this);
     }
-    
+
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton != null && type == 0)
         {
-            PlaceTower();
+            if (IsEmpty)
+            {
+                ColorTile(greenColor);
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    PlaceTower();
+                }
+            }
+            else
+                ColorTile(redColor);
+
         }
+    }
+
+    private void OnMouseExit()
+    {
+        ColorTile(Color.white);
     }
 
     private void PlaceTower()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton != null && type == 0)
-        {
-            GameObject tower = Instantiate(GameManager.Instance.ClickedButton.Button, transform.position, Quaternion.identity);
-            tower.transform.position = new Vector3(tower.transform.position.x, tower.transform.position.y, -10);
-            tower.GetComponent<SpriteRenderer>().sortingOrder = gridPosition.Y;
+        GameObject tower = Instantiate(GameManager.Instance.ClickedButton.Button, transform.position, Quaternion.identity);
+        //tower.transform.position = new Vector3(tower.transform.position.x, tower.transform.position.y, -1);
+        tower.GetComponent<SpriteRenderer>().sortingOrder = gridPosition.Y;
 
-            tower.transform.SetParent(transform);
-            GameManager.Instance.BuyTower();
-            Hover.Instance.Deactivate();
-        }
+        tower.transform.SetParent(transform);
+
+        IsEmpty = false;
+
+        GameManager.Instance.BuyTower();
+    }
+
+    private void ColorTile(Color32 newColor)
+    {
+        spriteRenderer.color = newColor;
     }
 }
