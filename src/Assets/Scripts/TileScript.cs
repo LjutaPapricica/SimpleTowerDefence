@@ -16,7 +16,7 @@ public struct Point
 
 public class TileScript : MonoBehaviour
 {
-    private Point point;
+    private Point gridPosition;
 
     // Use this for initialization
     void Start()
@@ -32,9 +32,14 @@ public class TileScript : MonoBehaviour
 
     public void Setup(Point point, Vector3 worldPoint)
     {
-        this.point = point;
+        gridPosition = point;
         transform.position = worldPoint;
 
         FloorManager.Instance.TileScripts.Add(point, this);
+    }
+
+    private void OnMouseOver()
+    {
+        Debug.Log(gridPosition.X + " " + gridPosition.Y);
     }
 }
