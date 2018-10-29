@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField]
-    private GameObject towerPrefab;
-
-    public GameObject TowerPrefab
+    private TowerButton clickedButton;
+    public TowerButton ClickedButton
     {
         get
         {
-            return towerPrefab;
+            return clickedButton;
         }
     }
-
+    
     // Use this for initialization
     void Start()
     {
@@ -23,6 +21,22 @@ public class GameManager : Singleton<GameManager>
 
     // Update is called once per frame
     void Update()
+    {
+
+    } 
+
+    public void PickTower(TowerButton towerButton)
+    {
+        clickedButton = towerButton;
+        Hover.Instance.Activate(towerButton.Sprite);
+    }
+
+    public void BuyTower()
+    {
+        clickedButton = null;
+    }
+
+    private void HandleEscape()
     {
 
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public struct Point
 {
@@ -50,10 +51,15 @@ public class TileScript : MonoBehaviour
 
     private void PlaceTower()
     {
-        if (type == 0)
+        if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton != null && type == 0)
         {
-            var tower = Instantiate(GameManager.Instance.TowerPrefab, transform.position, Quaternion.identity);
-            tower.transform.position = new Vector3(tower.transform.position.x, tower.transform.position.y, -1);
+            GameObject tower = Instantiate(GameManager.Instance.ClickedButton.Button, transform.position, Quaternion.identity);
+            tower.transform.position = new Vector3(tower.transform.position.x, tower.transform.position.y, -10);
+            tower.GetComponent<SpriteRenderer>().sortingOrder = gridPosition.Y;
+
+            tower.transform.SetParent(transform);
+            GameManager.Instance.BuyTower();
+            Hover.Instance.Deactivate();
         }
     }
 }
