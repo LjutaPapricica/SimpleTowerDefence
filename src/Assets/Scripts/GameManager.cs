@@ -38,13 +38,20 @@ public class GameManager : Singleton<GameManager>
 
     public void PickTower(TowerButton towerButton)
     {
-        ClickedButton = towerButton;
-        Hover.Instance.Activate(towerButton.Sprite);
+        if (currency >= towerButton.Price)
+        {
+            ClickedButton = towerButton;
+            Hover.Instance.Activate(towerButton.Sprite);
+        }
     }
 
     public void BuyTower()
     {
-        Hover.Instance.Deactivate();
+        if (currency >= ClickedButton.Price)
+        {
+            Currency -= ClickedButton.Price;
+            Hover.Instance.Deactivate();
+        }
     }
 
     private void HandleEscape()
