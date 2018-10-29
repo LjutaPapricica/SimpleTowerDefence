@@ -56,7 +56,7 @@ public class FloorManager : Singleton<FloorManager>
                 int tileIndex = map[i][j] - '0';
 
                 TileScript newTile = Instantiate(tiles[tileIndex]).GetComponent<TileScript>();
-                newTile.Setup(new Point(j, i), new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0));
+                newTile.Setup(tileIndex, new Point(j, i), new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0));
             }
         }
 

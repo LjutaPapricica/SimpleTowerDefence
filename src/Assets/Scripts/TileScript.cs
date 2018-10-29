@@ -17,11 +17,12 @@ public struct Point
 public class TileScript : MonoBehaviour
 {
     private Point gridPosition;
+    private int type;
 
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -30,16 +31,29 @@ public class TileScript : MonoBehaviour
 
     }
 
-    public void Setup(Point point, Vector3 worldPoint)
+    public void Setup(int type, Point point, Vector3 worldPoint)
     {
+        this.type = type;
         gridPosition = point;
         transform.position = worldPoint;
 
         FloorManager.Instance.TileScripts.Add(point, this);
     }
-
+    
     private void OnMouseOver()
     {
-        Debug.Log(gridPosition.X + " " + gridPosition.Y);
+        if (Input.GetMouseButtonDown(0))
+        {
+            PlaceTower();
+        }
+    }
+
+    private void PlaceTower()
+    {
+        if (type == 0)
+        {
+            var tower = Instantiate(GameManager.Instance.TowerPrefab, transform.position, Quaternion.identity);
+            tower.transform.position = new Vector3(tower.transform.position.x, tower.transform.position.y, -1);
+        }
     }
 }
