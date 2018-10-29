@@ -21,7 +21,7 @@ public class Hover : Singleton<Hover>
     private void FollowMouse()
     {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
     }
 
     public void Activate(Sprite sprite)

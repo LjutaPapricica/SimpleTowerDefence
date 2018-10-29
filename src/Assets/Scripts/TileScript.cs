@@ -51,9 +51,9 @@ public class TileScript : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton != null && type == 0)
+        if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton != null)
         {
-            if (IsEmpty)
+            if (IsEmpty && type == 0)
             {
                 ColorTile(greenColor);
 
