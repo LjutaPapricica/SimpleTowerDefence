@@ -71,7 +71,7 @@ public class Mob : MonoBehaviour
         transform.localScale = to;
         IsActive = true;
         if (remove)
-            Destroy(this);
+            Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -35,7 +35,7 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         HandleEscape();
-    } 
+    }
 
     public void PickTower(TowerButton towerButton)
     {
@@ -56,7 +56,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     private void HandleEscape()
-    { 
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Hover.Instance.Deactivate();
@@ -70,24 +70,27 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator SpawnWave()
     {
-        int mobIndex = Random.Range(0, 2);
-        string type = string.Empty;
-
-        switch (mobIndex)
+        for (int i = 0; i < 5; ++i)
         {
-            case 0:
-                type = "GreenTank";
-                break;
-            case 1:
-                type = "WhiteTank";
-                break;
-        }
+            int mobIndex = Random.Range(0, 2);
+            string type = string.Empty;
 
-        Mob mob = ObjectPool.GetObject(type).GetComponent<Mob>();
-        mob.Path = FloorManager.Instance.FinalPath;
-        mob.Spawn();
-        
-        yield return new WaitForSeconds(2.5f);
+            switch (mobIndex)
+            {
+                case 0:
+                    type = "GreenTank";
+                    break;
+                case 1:
+                    type = "WhiteTank";
+                    break;
+            }
+
+            Mob mob = ObjectPool.GetObject(type).GetComponent<Mob>();
+            mob.Path = FloorManager.Instance.FinalPath;
+            mob.Spawn();
+
+            yield return new WaitForSeconds(2.5f);
+        }
     }
 
     private void Awake()
