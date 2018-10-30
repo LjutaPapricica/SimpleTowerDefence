@@ -15,8 +15,12 @@ public class FloorManager : Singleton<FloorManager>
 
     [SerializeField]
     private GameObject startObject;
+
     [SerializeField]
     private GameObject endObject;
+
+    public KeyPoint StartPoint { get; set; }
+    public KeyPoint EndPoint { get; set; }
 
     private Point start;
     private Point finish;
@@ -77,7 +81,7 @@ public class FloorManager : Singleton<FloorManager>
         start = new Point(0, 0);
         finish = new Point(width - 1, 0);
 
-        Instantiate(startObject, TileScripts[start].transform.position, Quaternion.identity);
-        Instantiate(endObject, TileScripts[finish].transform.position, Quaternion.identity);
+        StartPoint = Instantiate(startObject, TileScripts[start].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
+        EndPoint = Instantiate(endObject, TileScripts[finish].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
     }
 }

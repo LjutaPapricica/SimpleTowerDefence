@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : Singleton<GameManager>
 {
     public TowerButton ClickedButton { get; set; }
+    public ObjectPool ObjectPool { get; set; }
 
     [SerializeField]
     private Text currencyText;
@@ -60,5 +61,36 @@ public class GameManager : Singleton<GameManager>
         {
             Hover.Instance.Deactivate();
         }
+    }
+
+    public void StartWave()
+    {
+        StartCoroutine(SpawnWave());
+    }
+
+    private IEnumerator SpawnWave()
+    {
+        int mobIndex = Random.Range(0, 2);
+        string type = string.Empty;
+
+        switch (mobIndex)
+        {
+            case 0:
+                type = "GreenTank";
+                break;
+            case 1:
+                type = "WhiteTank";
+                break;
+        }
+
+        Mob mob = ObjectPool.GetObject(type).GetComponent<Mob>();
+        mob.Spawn();
+        
+        yield return new WaitForSeconds(2.5f);
+    }
+
+    private void Awake()
+    {
+        ObjectPool = GetComponent<ObjectPool>();
     }
 }
