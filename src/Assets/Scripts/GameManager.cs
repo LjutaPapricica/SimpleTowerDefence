@@ -25,6 +25,24 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+
+    [SerializeField]
+    private Text waveText;
+
+    private int waveNumber;
+    public int WaveNumber
+    {
+        get
+        {
+            return waveNumber;
+        }
+        set
+        {
+            waveNumber = value;
+            waveText.text = "Wave: <color=\"lime\">" + value + "</color>";
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -65,6 +83,7 @@ public class GameManager : Singleton<GameManager>
 
     public void StartWave()
     {
+        ++WaveNumber;
         StartCoroutine(SpawnWave());
     }
 
