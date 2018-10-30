@@ -11,19 +11,21 @@ public class FloorManager : Singleton<FloorManager>
     private GameObject[] tiles;
 
     [SerializeField]
-    private CameraMovement cameraMovement;
-
-    [SerializeField]
     private GameObject startObject;
 
     [SerializeField]
     private GameObject endObject;
+
+    [SerializeField]
+    private CameraMovement cameraMovement;
 
     public KeyPoint StartPoint { get; set; }
     public KeyPoint EndPoint { get; set; }
 
     private Point start;
     private Point finish;
+
+    public Stack<Node> FinalPath { get; set; }
 
     public Dictionary<Point, TileScript> TileScripts;
     public float TileSize
@@ -60,14 +62,15 @@ public class FloorManager : Singleton<FloorManager>
                 int tileIndex = map[i][j] - '0';
 
                 TileScript newTile = Instantiate(tiles[tileIndex]).GetComponent<TileScript>();
-                newTile.Setup(tileIndex, new Point(j, i), new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0));
+                newTile.Setup(tileIndex, new Point(i, j), new Vector3(worldStart.x + TileSize * j, worldStart.y - TileSize * i, 0));
             }
         }
 
-        maxTile = TileScripts[new Point(map[0].Length - 1, map.Length - 1)].transform.position;
+        maxTile = TileScripts[new Point(map.Length - 1, map[0].Length - 1)].transform.position;
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
 
         SpawnPortals(map[0].Length);
+        GeneratePath();
     }
 
     private string[] LoadMap()
@@ -79,9 +82,14 @@ public class FloorManager : Singleton<FloorManager>
     private void SpawnPortals(int width)
     {
         start = new Point(0, 0);
-        finish = new Point(width - 1, 0);
+        finish = new Point(0, width - 1);
 
         StartPoint = Instantiate(startObject, TileScripts[start].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
         EndPoint = Instantiate(endObject, TileScripts[finish].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
+    }
+
+    private void GeneratePath()
+    {
+        FinalPath = GetComponent<Movement>().GeneratePath();
     }
 }

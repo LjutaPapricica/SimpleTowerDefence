@@ -84,6 +84,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         Mob mob = ObjectPool.GetObject(type).GetComponent<Mob>();
+        mob.Path = FloorManager.Instance.FinalPath;
         mob.Spawn();
         
         yield return new WaitForSeconds(2.5f);

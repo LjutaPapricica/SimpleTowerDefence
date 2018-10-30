@@ -17,8 +17,8 @@ public struct Point
 
 public class TileScript : MonoBehaviour
 {
-    private Point gridPosition;
-    private int type;
+    public Point GridPosition { get; set; }
+    public int Type { get; set; }
 
     private Color32 redColor = new Color32(255, 118, 118, 255);
     private Color32 greenColor = new Color32(96, 255, 92, 255);
@@ -41,9 +41,9 @@ public class TileScript : MonoBehaviour
 
     public void Setup(int type, Point point, Vector3 worldPoint)
     {
-        this.type = type;
+        Type = type;
         IsEmpty = true;
-        gridPosition = point;
+        GridPosition = point;
         transform.position = worldPoint; 
 
         FloorManager.Instance.TileScripts.Add(point, this);
@@ -53,7 +53,7 @@ public class TileScript : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton != null)
         {
-            if (IsEmpty && type == 0)
+            if (IsEmpty && Type == 0)
             {
                 ColorTile(greenColor);
 
@@ -77,7 +77,7 @@ public class TileScript : MonoBehaviour
     {
         GameObject tower = Instantiate(GameManager.Instance.ClickedButton.Button, transform.position, Quaternion.identity);
         //tower.transform.position = new Vector3(tower.transform.position.x, tower.transform.position.y, -1);
-        tower.GetComponent<SpriteRenderer>().sortingOrder = gridPosition.Y;
+        tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.Y;
 
         tower.transform.SetParent(transform);
 

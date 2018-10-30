@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 25492066}
   - component: {fileID: 25492065}
+  - component: {fileID: 25492067}
   m_Layer: 0
   m_Name: FloorManager
   m_TagString: Untagged
@@ -143,10 +144,10 @@ MonoBehaviour:
   tiles:
   - {fileID: 1087303643181324, guid: 4693b5916cc56464bb3fc15ab3e55ce9, type: 2}
   - {fileID: 1319861693325660, guid: e509fb26af1382943a90141044036928, type: 2}
-  cameraMovement: {fileID: 2032932862}
   startObject: {fileID: 1623230014043010, guid: 2babaf1ba9dfea34692f4f37c32e3f23,
     type: 2}
   endObject: {fileID: 1543986746344940, guid: 944056045d3875948b6a4f4ae790b2fe, type: 2}
+  cameraMovement: {fileID: 2032932862}
 --- !u!4 &25492066
 Transform:
   m_ObjectHideFlags: 0
@@ -160,6 +161,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &25492067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 25492064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b7d5aed4609b542b2f97e56c973b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &84273813
 GameObject:
   m_ObjectHideFlags: 0

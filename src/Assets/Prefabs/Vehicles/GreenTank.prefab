@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4442394109645822}
   - component: {fileID: 212408007836919832}
+  - component: {fileID: 114693531928562886}
   m_Layer: 0
   m_Name: GreenTank
   m_TagString: Untagged
@@ -70,6 +71,18 @@ Transform:
   m_Father: {fileID: 4442394109645822}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114693531928562886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1995375739177592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beceaa384c7f0de4ea02c91907947b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!212 &212033156118656180
 SpriteRenderer:
   m_ObjectHideFlags: 1
