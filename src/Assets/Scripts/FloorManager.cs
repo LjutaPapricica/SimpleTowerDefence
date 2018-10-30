@@ -82,7 +82,7 @@ public class FloorManager : Singleton<FloorManager>
     private void SpawnPortals(int width)
     {
         start = new Point(0, 0);
-        finish = new Point(0, width - 1);
+        finish = new Point(0, width - 3);
 
         StartPoint = Instantiate(startObject, TileScripts[start].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
         EndPoint = Instantiate(endObject, TileScripts[finish].transform.position, Quaternion.identity).GetComponent<KeyPoint>();

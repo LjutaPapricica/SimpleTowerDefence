@@ -7,6 +7,7 @@ public class Mob : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    public bool IsActive { get; set; }
     private Stack<Node> path;
     public Stack<Node> Path
     {
@@ -33,13 +34,16 @@ public class Mob : MonoBehaviour
 
     private void Move()
     {
-        transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
-        if (transform.position == destination)
+        if (IsActive)
         {
-            if (path != null && path.Count > 0)
+            transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+            if (transform.position == destination)
             {
-                GridPosition = path.Peek().GridPosition;
-                destination = path.Pop().WorldPosition;
+                if (path != null && path.Count > 0)
+                {
+                    GridPosition = path.Peek().GridPosition;
+                    destination = path.Pop().WorldPosition;
+                }
             }
         }
     }
@@ -52,7 +56,7 @@ public class Mob : MonoBehaviour
         Path = FloorManager.Instance.FinalPath;
     }
 
-    public IEnumerator Scale(Vector3 from, Vector3 to)
+    public IEnumerator Scale(Vector3 from, Vector3 to, bool remove = false)
     {
         float progress = 0;
 
@@ -65,5 +69,16 @@ public class Mob : MonoBehaviour
         }
 
         transform.localScale = to;
+        IsActive = true;
+        if (remove)
+            Destroy(this);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Finish")
+        {
+            StartCoroutine(Scale(new Vector3(1, 1), new Vector3(0.1f, 0.1f), true));
+        }
     }
 }
