@@ -71,7 +71,7 @@ public class Mob : MonoBehaviour
         transform.localScale = to;
         IsActive = true;
         if (remove)
-            Destroy(gameObject);
+            Release();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -80,5 +80,11 @@ public class Mob : MonoBehaviour
         {
             StartCoroutine(Scale(new Vector3(1, 1), new Vector3(0.1f, 0.1f), true));
         }
+    }
+
+    private void Release()
+    {
+        IsActive = false;
+        GameManager.Instance.ObjectPool.ReleaseObject(gameObject);
     }
 }
