@@ -457,6 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f954434066ea0644ab74daa742bd0c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveButton: {fileID: 749530305}
   currencyText: {fileID: 1259902506}
   waveText: {fileID: 885323297}
 --- !u!4 &386822194

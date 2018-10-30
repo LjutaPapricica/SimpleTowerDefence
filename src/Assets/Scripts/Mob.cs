@@ -86,5 +86,6 @@ public class Mob : MonoBehaviour
     {
         IsActive = false;
         GameManager.Instance.ObjectPool.ReleaseObject(gameObject);
+        GameManager.Instance.RemoveMonster(this);
     }
 }

@@ -9,6 +9,11 @@ public class GameManager : Singleton<GameManager>
     public ObjectPool ObjectPool { get; set; }
 
     [SerializeField]
+    private GameObject waveButton;
+
+    private List<Mob> activeMobs = new List<Mob>();
+    
+    [SerializeField]
     private Text currencyText;
 
     private int currency;
@@ -22,6 +27,14 @@ public class GameManager : Singleton<GameManager>
         {
             currency = value;
             currencyText.text = value + "<color=\"lime\">$</color>";
+        }
+    }
+
+    public bool IsWaveActive
+    {
+        get
+        {
+            return activeMobs.Count > 0;
         }
     }
 
@@ -84,6 +97,7 @@ public class GameManager : Singleton<GameManager>
     public void StartWave()
     {
         ++WaveNumber;
+        waveButton.SetActive(false);
         StartCoroutine(SpawnWave());
     }
 
@@ -108,6 +122,8 @@ public class GameManager : Singleton<GameManager>
             mob.Path = FloorManager.Instance.FinalPath;
             mob.Spawn();
 
+            activeMobs.Add(mob);
+
             yield return new WaitForSeconds(2.5f);
         }
     }
@@ -115,5 +131,12 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         ObjectPool = GetComponent<ObjectPool>();
+    }
+
+    public void RemoveMonster(Mob monster)
+    {
+        activeMobs.Remove(monster);
+        if (!IsWaveActive)
+            waveButton.SetActive(true);
     }
 }
