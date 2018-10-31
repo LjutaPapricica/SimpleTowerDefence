@@ -86,6 +86,7 @@ public class TileScript : MonoBehaviour
         Tower = towerObject.GetComponent<Tower>();
 
         IsEmpty = false;
+        GetComponent<BoxCollider2D>().enabled = false;
 
         GameManager.Instance.BuyTower();
     }
