@@ -39,6 +39,15 @@ public class Tower : MonoBehaviour
         {
             target = targets.Dequeue();
         }
+        if (target != null && target.IsActive)
+        {
+            Shoot();
+        }
+    }
+
+    private void Shoot()
+    {
+        Projectile projectile = GameManager.Instance.ObjectPool.GetObject("SmallFire").GetComponent<Projectile>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
