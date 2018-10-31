@@ -80,6 +80,7 @@ public class TileScript : MonoBehaviour
         tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.Y;
 
         tower.transform.SetParent(transform);
+        tower.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
         IsEmpty = false;
 
