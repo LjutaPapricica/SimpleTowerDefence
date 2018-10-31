@@ -26,6 +26,7 @@ public class TileScript : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     public bool IsEmpty { get; set; }
+    public bool IsSelected { get; set; }
 
     // Use this for initialization
     void Start()
@@ -44,31 +45,39 @@ public class TileScript : MonoBehaviour
         Type = type;
         IsEmpty = true;
         GridPosition = point;
-        transform.position = worldPoint; 
+        transform.position = worldPoint;
 
         FloorManager.Instance.TileScripts.Add(point, this);
     }
 
     private void OnMouseOver()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedButton != null)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (IsEmpty && Type == 0)
+            if (GameManager.Instance.ClickedButton != null)
             {
-                ColorTile(greenColor);
-
-                if (Input.GetMouseButtonDown(0))
+                if (IsEmpty && Type == 0)
                 {
-                    PlaceTower();
-                }
-            }
-            else
-                ColorTile(redColor);
+                    ColorTile(greenColor);
 
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        PlaceTower();
+                    }
+                }
+                else
+                    ColorTile(redColor);
+            }
+            else if (transform.childCount > 0 && Input.GetMouseButtonDown(0))
+            {
+                SpriteRenderer circleRenderer = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
+                IsSelected = !IsSelected;
+                circleRenderer.enabled = IsSelected;
+            }
         }
     }
 
-    private void OnMouseExit()
+    private void OnMouseExit()  
     {
         ColorTile(Color.white);
     }
