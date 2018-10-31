@@ -26,7 +26,33 @@ public class TileScript : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     public bool IsEmpty { get; set; }
-    public bool IsSelected { get; set; }
+
+    private bool isSelected;
+    public bool IsSelected
+    {
+        get
+        {
+            return isSelected;
+        }
+        set
+        {
+            if (transform.childCount > 0)
+            {
+                isSelected = value;
+                SpriteRenderer circleRenderer = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
+                circleRenderer.enabled = isSelected;
+
+                if (isSelected)
+                {
+                    foreach (TileScript tile in FloorManager.Instance.TileScripts.Values)
+                    {
+                        if (tile != this)
+                            tile.IsSelected = false;
+                    }
+                }
+            }
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -70,14 +96,12 @@ public class TileScript : MonoBehaviour
             }
             else if (transform.childCount > 0 && Input.GetMouseButtonDown(0))
             {
-                SpriteRenderer circleRenderer = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
                 IsSelected = !IsSelected;
-                circleRenderer.enabled = IsSelected;
             }
         }
     }
 
-    private void OnMouseExit()  
+    private void OnMouseExit()
     {
         ColorTile(Color.white);
     }
