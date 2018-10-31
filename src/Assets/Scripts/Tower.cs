@@ -10,6 +10,13 @@ public class Tower : MonoBehaviour
     private bool isSelected;
     private Mob target;
     private Queue<Mob> targets = new Queue<Mob>();
+    private bool canAttack = true;
+
+    [SerializeField]
+    private float cooldown;
+    [SerializeField]
+    private float speed;
+    private float attackTimer;
 
     // Use this for initialization
     void Start()
@@ -22,7 +29,6 @@ public class Tower : MonoBehaviour
     void Update()
     {
         Attack();
-        Debug.Log(target);
     }
 
     private void OnMouseOver()
@@ -35,19 +41,35 @@ public class Tower : MonoBehaviour
 
     private void Attack()
     {
+        if (!canAttack)
+        {
+            attackTimer += Time.deltaTime;
+            if (attackTimer > cooldown)
+            {
+                attackTimer = 0;
+                canAttack = true;
+            }
+        }
         if (target == null && targets.Count > 0)
         {
             target = targets.Dequeue();
         }
         if (target != null && target.IsActive)
         {
-            Shoot();
+            if (canAttack)
+            {
+                Shoot();
+                canAttack = false;
+            }
         }
     }
 
     private void Shoot()
     {
-        Projectile projectile = GameManager.Instance.ObjectPool.GetObject("SmallFire").GetComponent<Projectile>();
+        Projectile projectile = GameManager.Instance.ObjectPool.GetObject("Fire").GetComponent<Projectile>();
+        projectile.transform.position = transform.position;
+        projectile.Speed = speed;
+        projectile.Target = target;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
