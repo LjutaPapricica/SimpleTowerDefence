@@ -32,17 +32,114 @@ public class Mob : MonoBehaviour
         Move();
     }
 
+    public enum Direction
+    {
+        None = -1,
+        Left,
+        Up,
+        Right,
+        Down
+    }
+
+    private Direction direction = Direction.Right;
+    bool rotated;
+
     private void Move()
     {
         if (IsActive)
         {
+            int angles = 0;
+
+            if (rotated)
+            {
+                rotated = false;
+                return;
+            }
+
             transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
             if (transform.position == destination)
             {
                 if (path != null && path.Count > 0)
                 {
+                    switch (direction)
+                    {
+                        case Direction.Right:
+                            if (path.Peek().GridPosition.Y == GridPosition.Y)
+                            {
+                                if (path.Peek().GridPosition.X > GridPosition.X)
+                                {
+                                    direction = Direction.Down;
+                                    angles = -90;
+                                }
+                                else if (path.Peek().GridPosition.X < GridPosition.X)
+                                {
+                                    direction = Direction.Up;
+                                    angles = 90;
+                                }
+                            }
+                            break;
+
+                        case Direction.Left:
+                            if (path.Peek().GridPosition.Y == GridPosition.Y)
+                            {
+                                if (path.Peek().GridPosition.X > GridPosition.X)
+                                {
+                                    direction = Direction.Up;
+                                    angles = 90;
+                                }
+                                else if (path.Peek().GridPosition.X < GridPosition.X)
+                                {
+                                    direction = Direction.Down;
+                                    angles = -90;
+                                }
+                            }
+                            break;
+
+                        case Direction.Up:
+                            if (path.Peek().GridPosition.X == GridPosition.X)
+                            {
+                                if (path.Peek().GridPosition.Y > GridPosition.Y)
+                                {
+                                    direction = Direction.Right;
+                                    angles = -90;
+                                }
+                                else if (path.Peek().GridPosition.Y < GridPosition.Y)
+                                {
+                                    direction = Direction.Left;
+                                    angles = 90;
+                                }
+                            }
+                            break;
+
+                        case Direction.Down:
+                            if (path.Peek().GridPosition.X == GridPosition.X)
+                            {
+                                if (path.Peek().GridPosition.Y > GridPosition.Y)
+                                {
+                                    direction = Direction.Left;
+                                    angles = 90;
+                                }
+                                else if (path.Peek().GridPosition.Y < GridPosition.Y)
+                                {
+                                    direction = Direction.Right;
+                                    angles = -90;
+                                }
+                            }
+                            break;
+                    }
+
+                    if (angles > 0)
+                    {
+                        Vector3 toTarget = destination - transform.position;
+                        float angle = Mathf.Atan2(toTarget.y, toTarget.x) + Mathf.Rad2Deg + 90;
+                        Quaternion qt = Quaternion.AngleAxis(angle, Vector3.forward);
+                        gameObject.transform.rotation = Quaternion.RotateTowards(transform.rotation, qt, 20 * Time.deltaTime);
+                        //rotated = true;
+                    }
+
                     GridPosition = path.Peek().GridPosition;
                     destination = path.Pop().WorldPosition;
+
                 }
             }
         }

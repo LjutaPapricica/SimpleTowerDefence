@@ -24,35 +24,9 @@ public class TileScript : MonoBehaviour
     private Color32 greenColor = new Color32(96, 255, 92, 255);
 
     private SpriteRenderer spriteRenderer;
+    public Tower Tower { get; set; }
 
     public bool IsEmpty { get; set; }
-
-    private bool isSelected;
-    public bool IsSelected
-    {
-        get
-        {
-            return isSelected;
-        }
-        set
-        {
-            if (transform.childCount > 0)
-            {
-                isSelected = value;
-                SpriteRenderer circleRenderer = transform.GetChild(0).transform.GetChild(0).GetComponent<SpriteRenderer>();
-                circleRenderer.enabled = isSelected;
-
-                if (isSelected)
-                {
-                    foreach (TileScript tile in FloorManager.Instance.TileScripts.Values)
-                    {
-                        if (tile != this)
-                            tile.IsSelected = false;
-                    }
-                }
-            }
-        }
-    }
 
     // Use this for initialization
     void Start()
@@ -96,7 +70,7 @@ public class TileScript : MonoBehaviour
             }
             else if (transform.childCount > 0 && Input.GetMouseButtonDown(0))
             {
-                IsSelected = !IsSelected;
+                Tower.Toggle();
             }
         }
     }
@@ -108,12 +82,12 @@ public class TileScript : MonoBehaviour
 
     private void PlaceTower()
     {
-        GameObject tower = Instantiate(GameManager.Instance.ClickedButton.Button, transform.position, Quaternion.identity);
+        GameObject towerObject = Instantiate(GameManager.Instance.ClickedButton.Button, transform.position, Quaternion.identity);
         //tower.transform.position = new Vector3(tower.transform.position.x, tower.transform.position.y, -1);
-        tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.Y;
+        towerObject.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.Y;
 
-        tower.transform.SetParent(transform);
-        tower.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        towerObject.transform.SetParent(transform);
+        Tower = towerObject.GetComponent<Tower>();
 
         IsEmpty = false;
 
