@@ -6,24 +6,32 @@ using UnityEngine.EventSystems;
 public class Tower : MonoBehaviour
 {
     private GameObject range;
-    private Range rangeScript;
 
-    private bool isSelected = true;
-    
+    private bool isSelected;
+
     // Use this for initialization
     void Start()
     {
         range = transform.GetChild(0).gameObject;
-        rangeScript = range.GetComponent<Range>();
+        Deselect();
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void OnMouseOver()
+    {
         if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
         {
             Toggle();
         }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Trigger enter");
     }
 
     public void Select()
@@ -35,14 +43,15 @@ public class Tower : MonoBehaviour
         }
         isSelected = true;
         range.GetComponent<SpriteRenderer>().enabled = true;
-        
+
 
     }
 
     public void Deselect()
     {
         isSelected = false;
-        range.GetComponent<SpriteRenderer>().enabled = false;
+        if (range != null)
+            range.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     public void Toggle()
