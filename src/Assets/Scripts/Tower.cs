@@ -1,27 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Tower : MonoBehaviour
 {
     private GameObject range;
     private Range rangeScript;
-    
-    private bool isSelected;
 
+    private bool isSelected = true;
+    
     // Use this for initialization
     void Start()
     {
         range = transform.GetChild(0).gameObject;
         rangeScript = range.GetComponent<Range>();
-
-        Deselect();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
+        {
+            Toggle();
+        }
     }
 
     public void Select()

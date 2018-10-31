@@ -68,10 +68,6 @@ public class TileScript : MonoBehaviour
                 else
                     ColorTile(redColor);
             }
-            else if (transform.childCount > 0 && Input.GetMouseButtonDown(0))
-            {
-                Tower.Toggle();
-            }
         }
     }
 
