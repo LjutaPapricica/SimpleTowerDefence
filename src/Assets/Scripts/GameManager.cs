@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
     private GameObject waveButton;
 
     private List<Mob> activeMobs = new List<Mob>();
-    
+
     [SerializeField]
     private Text currencyText;
 
@@ -70,7 +70,7 @@ public class GameManager : Singleton<GameManager>
 
     public void PickTower(TowerButton towerButton)
     {
-        if (currency >= towerButton.Price)
+        if (currency >= towerButton.Price && !IsWaveActive)
         {
             ClickedButton = towerButton;
             Hover.Instance.Activate(towerButton.Sprite);
