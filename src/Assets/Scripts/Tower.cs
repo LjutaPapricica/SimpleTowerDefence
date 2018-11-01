@@ -31,14 +31,6 @@ public class Tower : MonoBehaviour
         Attack();
     }
 
-    private void OnMouseOver()
-    {
-        if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
-        {
-            Toggle();
-        }
-    }
-
     private void Attack()
     {
         if (!canAttack)
@@ -52,6 +44,7 @@ public class Tower : MonoBehaviour
         }
         if (target == null && targets.Count > 0)
         {
+            Debug.Log("Target active");
             target = targets.Dequeue();
         }
         if (target != null && target.IsActive)
@@ -76,6 +69,7 @@ public class Tower : MonoBehaviour
     {
         if (collision.name == "Mob")
         {
+            Debug.Log("Enqueue target");
             targets.Enqueue(collision.GetComponent<Mob>());
         }
     }
@@ -84,6 +78,7 @@ public class Tower : MonoBehaviour
     {
         if (collision.name == "Mob")
         {
+            Debug.Log("Target inactive");
             target = null;
         }
     }

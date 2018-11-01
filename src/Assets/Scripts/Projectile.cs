@@ -33,8 +33,12 @@ public class Projectile : MonoBehaviour
     {
         if (Target != null && Target.IsActive)
         {
-            transform.LookAt(Target.transform);
+            //transform.LookAt(Target.transform);
             GetComponent<Rigidbody2D>().AddRelativeForce(Vector3.forward * Speed, ForceMode2D.Force);
+
+            Vector2 dir = Target.transform.position - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
            // transform.position = Vector3.MoveTowards(transform.position, Target.transform.position, Speed * Time.deltaTime);
         }
         else if (Target != null && !Target.IsActive)

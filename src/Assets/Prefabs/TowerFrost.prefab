@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4908084722190882}
   - component: {fileID: 212181009116503476}
-  - component: {fileID: 58944723752107352}
   m_Layer: 2
   m_Name: Circle
   m_TagString: Untagged
@@ -38,8 +37,8 @@ GameObject:
   - component: {fileID: 4258559957235526}
   - component: {fileID: 212143768009500572}
   - component: {fileID: 114047089189251032}
-  - component: {fileID: 61864877952584802}
-  m_Layer: 0
+  - component: {fileID: 58592010076097570}
+  m_Layer: 2
   m_Name: TowerFrost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4530212690238866}
   - component: {fileID: 212491892989593940}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: towerDefense_tile181
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,23 +102,8 @@ Transform:
   m_Father: {fileID: 4258559957235526}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58944723752107352
+--- !u!58 &58592010076097570
 CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1183251173264982}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!61 &61864877952584802
-BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -131,18 +115,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.82285714, y: -0.82285714}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.05, y: 0.95}
-    oldSize: {x: 1.8285714, y: 1.8285714}
-    newSize: {x: 1.8285714, y: 1.8285714}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8285713, y: 1.8285713}
-  m_EdgeRadius: 0.2
+  m_Radius: 3
 --- !u!114 &114047089189251032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1561e5ba947ee34490f01a1c74d0dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 3
-  speed: 3
+  cooldown: 1
+  speed: 1
 --- !u!212 &212143768009500572
 SpriteRenderer:
   m_ObjectHideFlags: 1

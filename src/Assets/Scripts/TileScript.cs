@@ -52,6 +52,9 @@ public class TileScript : MonoBehaviour
 
     private void OnMouseOver()
     {
+        if (Input.GetMouseButtonDown(0))
+            Debug.Log("Clicked");
+
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             if (GameManager.Instance.ClickedButton != null)
@@ -67,6 +70,11 @@ public class TileScript : MonoBehaviour
                 }
                 else
                     ColorTile(redColor);
+            }
+            else if (Input.GetMouseButtonDown(0) && transform.childCount > 0)
+            {
+                Tower tower = transform.GetChild(0).GetComponent<Tower>();
+                tower.Toggle();
             }
         }
     }
@@ -86,7 +94,7 @@ public class TileScript : MonoBehaviour
         Tower = towerObject.GetComponent<Tower>();
 
         IsEmpty = false;
-        GetComponent<BoxCollider2D>().enabled = false;
+        //GetComponent<BoxCollider2D>().enabled = false;
 
         GameManager.Instance.BuyTower();
     }
