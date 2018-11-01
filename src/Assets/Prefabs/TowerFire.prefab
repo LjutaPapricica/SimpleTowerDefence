@@ -131,6 +131,7 @@ MonoBehaviour:
   cooldown: 1.5
   speed: 3
   damage: 1
+  projectileName: Fire
 --- !u!212 &212401225787681408
 SpriteRenderer:
   m_ObjectHideFlags: 1

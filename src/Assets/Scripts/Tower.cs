@@ -18,6 +18,8 @@ public class Tower : MonoBehaviour
     private float speed;
     [SerializeField]
     private float damage;
+    [SerializeField]
+    private string projectileName;
 
     private float attackTimer;
 
@@ -97,7 +99,7 @@ public class Tower : MonoBehaviour
 
     private void Shoot()
     {
-        Projectile projectile = GameManager.Instance.ObjectPool.GetObject("Fire").GetComponent<Projectile>();
+        Projectile projectile = GameManager.Instance.ObjectPool.GetObject(projectileName).GetComponent<Projectile>();
         projectile.transform.position = transform.position;
         projectile.Speed = speed;
         projectile.Target = target;
