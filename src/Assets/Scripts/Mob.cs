@@ -76,7 +76,7 @@ public class Mob : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, progress);
 
-            progress += Time.deltaTime;
+            progress += Time.deltaTime * speed;
             yield return null;
         }
 
