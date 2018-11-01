@@ -103,7 +103,7 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator SpawnWave()
     {
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 1; ++i)
         {
             int mobIndex = Random.Range(0, 2);
             string type = string.Empty;

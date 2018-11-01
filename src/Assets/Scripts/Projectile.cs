@@ -19,13 +19,25 @@ public class Projectile : MonoBehaviour
         MoveToTarget();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "Mob")
+        {
+            Debug.Log(collision);
+
+            GameManager.Instance.ObjectPool.ReleaseObject(gameObject);
+        }
+    }
+    
     private void MoveToTarget()
     {
         if (Target != null && Target.IsActive)
         {
-            transform.position = Vector3.MoveTowards(transform.position, Target.transform.position, Speed * Time.deltaTime);
+            transform.LookAt(Target.transform);
+            GetComponent<Rigidbody2D>().AddRelativeForce(Vector3.forward * Speed, ForceMode2D.Force);
+           // transform.position = Vector3.MoveTowards(transform.position, Target.transform.position, Speed * Time.deltaTime);
         }
-        else if (!Target.IsActive)
+        else if (Target != null && !Target.IsActive)
         {
             GameManager.Instance.ObjectPool.ReleaseObject(gameObject);
         }
