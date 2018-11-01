@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -190,6 +190,11 @@ public class Mob : MonoBehaviour
             Release();
     }
 
+    private void Start()
+    {
+        transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = NumberManager.Instance.GetNumber((int)health);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Finish")
@@ -208,6 +213,8 @@ public class Mob : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+        transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = NumberManager.Instance.GetNumber((int)health);
+        
         if (health <= 0)
             Release();
     }
