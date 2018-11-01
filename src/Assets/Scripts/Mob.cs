@@ -42,98 +42,122 @@ public class Mob : MonoBehaviour
     }
 
     private Direction direction = Direction.Right;
-    bool rotated;
+    private float angles;
 
     private void Move()
     {
         if (IsActive)
         {
-            int angles = 0;
-            
             transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
             if (transform.position == destination)
             {
                 if (path != null && path.Count > 0)
                 {
-                    switch (direction)
-                    {
-                        case Direction.Right:
-                            if (path.Peek().GridPosition.Y == GridPosition.Y)
-                            {
-                                if (path.Peek().GridPosition.X > GridPosition.X)
-                                {
-                                    direction = Direction.Down;
-                                    angles = -90;
-                                }
-                                else if (path.Peek().GridPosition.X < GridPosition.X)
-                                {
-                                    direction = Direction.Up;
-                                    angles = 90;
-                                }
-                            }
-                            break;
-
-                        case Direction.Left:
-                            if (path.Peek().GridPosition.Y == GridPosition.Y)
-                            {
-                                if (path.Peek().GridPosition.X > GridPosition.X)
-                                {
-                                    direction = Direction.Up;
-                                    angles = 90;
-                                }
-                                else if (path.Peek().GridPosition.X < GridPosition.X)
-                                {
-                                    direction = Direction.Down;
-                                    angles = -90;
-                                }
-                            }
-                            break;
-
-                        case Direction.Up:
-                            if (path.Peek().GridPosition.X == GridPosition.X)
-                            {
-                                if (path.Peek().GridPosition.Y > GridPosition.Y)
-                                {
-                                    direction = Direction.Right;
-                                    angles = -90;
-                                }
-                                else if (path.Peek().GridPosition.Y < GridPosition.Y)
-                                {
-                                    direction = Direction.Left;
-                                    angles = 90;
-                                }
-                            }
-                            break;
-
-                        case Direction.Down:
-                            if (path.Peek().GridPosition.X == GridPosition.X)
-                            {
-                                if (path.Peek().GridPosition.Y > GridPosition.Y)
-                                {
-                                    direction = Direction.Left;
-                                    angles = 90;
-                                }
-                                else if (path.Peek().GridPosition.Y < GridPosition.Y)
-                                {
-                                    direction = Direction.Right;
-                                    angles = -90;
-                                }
-                            }
-                            break;
-                    }
-
-                    if (angles != 0)
-                    {
-                        //StartCoroutine(Rotate(transform.position, path.Peek().WorldPosition, direction));
-                        //rotated = true;
-                    }
-
+                    if (DetermineRotation())
+                        StartCoroutine(Rotate());
 
                     GridPosition = path.Peek().GridPosition;
                     destination = path.Pop().WorldPosition;
                 }
             }
         }
+    }
+
+    private IEnumerator Rotate()
+    {
+        float progress = 0;
+
+        Quaternion rotation = Quaternion.AngleAxis(angles, Vector3.forward);
+
+        while (progress < 1)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, progress);
+
+            progress += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = rotation;
+    }
+
+    private bool DetermineRotation()
+    {
+        switch (direction)
+        {
+            case Direction.Right:
+                if (path.Peek().GridPosition.Y == GridPosition.Y)
+                {
+                    if (path.Peek().GridPosition.X > GridPosition.X)
+                    {
+                        direction = Direction.Down;
+                        angles = -90;
+                        return true;
+                    }
+                    else if (path.Peek().GridPosition.X < GridPosition.X)
+                    {
+                        direction = Direction.Up;
+                        angles = 90;
+                        return true;
+                    }
+                }
+                break;
+
+            case Direction.Left:
+                if (path.Peek().GridPosition.Y == GridPosition.Y)
+                {
+                    if (path.Peek().GridPosition.X > GridPosition.X)
+                    {
+                        direction = Direction.Up;
+                        angles = 90;
+                        return true;
+                    }
+                    else if (path.Peek().GridPosition.X < GridPosition.X)
+                    {
+                        direction = Direction.Down;
+                        angles = -90;
+                        return true;
+                    }
+                }
+                break;
+
+            case Direction.Up:
+                if (path.Peek().GridPosition.X == GridPosition.X)
+                {
+                    if (path.Peek().GridPosition.Y > GridPosition.Y)
+                    {
+                        direction = Direction.Right;
+                        angles = 0;
+                        return true;
+                    }
+                    else if (path.Peek().GridPosition.Y < GridPosition.Y)
+                    {
+                        direction = Direction.Left;
+                        angles = 180;
+                        return true;
+                    }
+                }
+                break;
+
+            case Direction.Down:
+                if (path.Peek().GridPosition.X == GridPosition.X)
+                {
+                    if (path.Peek().GridPosition.Y > GridPosition.Y)
+                    {
+                        direction = Direction.Right;
+                        angles = 0;
+                        return true;
+                    }
+                    else if (path.Peek().GridPosition.Y < GridPosition.Y)
+                    {
+                        direction = Direction.Left;
+                        angles = 180;
+                        return true;
+                    }
+                }
+                break;
+        }
+
+        return false;
     }
 
 
