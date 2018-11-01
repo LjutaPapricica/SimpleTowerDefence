@@ -105,7 +105,7 @@ public class GameManager : Singleton<GameManager>
     {
         for (int i = 0; i < 5; ++i)
         {
-            int mobIndex = Random.Range(0, 2);
+            int mobIndex = Random.Range(0, 3);
             string type = string.Empty;
 
             switch (mobIndex)
@@ -115,6 +115,9 @@ public class GameManager : Singleton<GameManager>
                     break;
                 case 1:
                     type = "WhiteTank";
+                    break;
+                case 2:
+                    type = "GreenPlane";
                     break;
             }
 
