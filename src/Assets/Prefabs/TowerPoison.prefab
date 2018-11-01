@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 1.5
   speed: 3
+  damage: 1
 --- !u!212 &212013748556777336
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -6,7 +6,8 @@ public class Projectile : MonoBehaviour
 {
     public Mob Target { get; set; }
     public float Speed { get; set; }
-    
+    public float Damage { get; set; }
+
     // Use this for initialization
     void Start()
     {
@@ -25,6 +26,7 @@ public class Projectile : MonoBehaviour
         {
             Debug.Log(collision);
 
+            Target.GetComponent<Mob>().TakeDamage(Damage);
             GameManager.Instance.ObjectPool.ReleaseObject(gameObject);
         }
     }

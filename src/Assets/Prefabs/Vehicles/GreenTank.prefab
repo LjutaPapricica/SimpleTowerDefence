@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  health: 5
 --- !u!212 &212033156118656180
 SpriteRenderer:
   m_ObjectHideFlags: 1

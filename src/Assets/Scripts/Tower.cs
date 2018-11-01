@@ -16,6 +16,9 @@ public class Tower : MonoBehaviour
     private float cooldown;
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private float damage;
+
     private float attackTimer;
 
     // Use this for initialization
@@ -98,6 +101,7 @@ public class Tower : MonoBehaviour
         projectile.transform.position = transform.position;
         projectile.Speed = speed;
         projectile.Target = target;
+        projectile.Damage = damage;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -7,6 +7,9 @@ public class Mob : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    [SerializeField]
+    private float health;
+    
     public bool IsActive { get; set; }
     private Stack<Node> path;
     public Stack<Node> Path
@@ -200,5 +203,12 @@ public class Mob : MonoBehaviour
         IsActive = false;
         GameManager.Instance.ObjectPool.ReleaseObject(gameObject);
         GameManager.Instance.RemoveMonster(this);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+            Release();
     }
 }
