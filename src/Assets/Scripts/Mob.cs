@@ -49,13 +49,7 @@ public class Mob : MonoBehaviour
         if (IsActive)
         {
             int angles = 0;
-
-            if (rotated)
-            {
-                rotated = false;
-                return;
-            }
-
+            
             transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
             if (transform.position == destination)
             {
@@ -128,22 +122,20 @@ public class Mob : MonoBehaviour
                             break;
                     }
 
-                    if (angles > 0)
+                    if (angles != 0)
                     {
-                        Vector3 toTarget = destination - transform.position;
-                        float angle = Mathf.Atan2(toTarget.y, toTarget.x) + Mathf.Rad2Deg + 90;
-                        Quaternion qt = Quaternion.AngleAxis(angle, Vector3.forward);
-                        gameObject.transform.rotation = Quaternion.RotateTowards(transform.rotation, qt, 20 * Time.deltaTime);
+                        //StartCoroutine(Rotate(transform.position, path.Peek().WorldPosition, direction));
                         //rotated = true;
                     }
 
+
                     GridPosition = path.Peek().GridPosition;
                     destination = path.Pop().WorldPosition;
-
                 }
             }
         }
     }
+
 
     public void Spawn()
     {
