@@ -49,12 +49,47 @@ public class Tower : MonoBehaviour
         }
         if (target != null && target.IsActive)
         {
+            StartCoroutine(Rotate(transform.position, target.transform.position));
             if (canAttack)
-            {
+            { 
                 Shoot();
                 canAttack = false;
             }
         }
+    }
+
+    private IEnumerator Rotate(Vector2 from, Vector2 to)
+    {
+        float progress = 0;
+
+        Vector2 direction = to - from;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        while (progress <= 1)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, progress);
+            progress += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.rotation = rotation;
+    }
+
+    private IEnumerator ResetRotation(Vector2 from)
+    {
+        float progress = 0;
+
+        while (progress <= 1)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, progress);
+            progress += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.rotation = Quaternion.identity;
     }
 
     private void Shoot()
@@ -80,6 +115,9 @@ public class Tower : MonoBehaviour
         {
             Debug.Log("Target inactive");
             target = null;
+
+            if (targets.Count == 0)
+                StartCoroutine(ResetRotation(transform.position));
         }
     }
 
