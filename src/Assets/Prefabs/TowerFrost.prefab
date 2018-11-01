@@ -67,8 +67,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1313923708235390}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 306.39374, y: 146.58575, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4908084722190882}
@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1947717981669416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.23, y: 0.23, z: 0}
+  m_LocalPosition: {x: 0.02, y: 0.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4258559957235526}
@@ -96,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1183251173264982}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.78575134, y: -0.7827606, z: 0}
+  m_LocalPosition: {x: 0.07, y: 0.07, z: 0}
   m_LocalScale: {x: 4.3875, y: 4.3875, z: 0}
   m_Children: []
   m_Father: {fileID: 4258559957235526}
@@ -114,7 +114,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.82285714, y: -0.82285714}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
 --- !u!114 &114047089189251032
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1561e5ba947ee34490f01a1c74d0dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 1
-  speed: 1
+  cooldown: 3
+  speed: 3
 --- !u!212 &212143768009500572
 SpriteRenderer:
   m_ObjectHideFlags: 1
