@@ -27,10 +27,10 @@ public class Projectile : MonoBehaviour
             Debug.Log(collision);
 
             Target.GetComponent<Mob>().TakeDamage(Damage);
-            GameManager.Instance.ObjectPool.ReleaseObject(gameObject);
+            GetComponent<Animator>().SetTrigger("Impact");
         }
     }
-    
+
     private void MoveToTarget()
     {
         if (Target != null && Target.IsActive)
