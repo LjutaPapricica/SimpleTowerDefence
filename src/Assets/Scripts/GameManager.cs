@@ -97,7 +97,7 @@ public class GameManager : Singleton<GameManager>
         {
             Hover.Instance.Deactivate();
             if (SelectedTower != null)
-                SelectedTower.Deselect();
+                SelectedTower.Toggle();
         }
     }
 

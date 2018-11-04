@@ -138,7 +138,6 @@ public class Tower : MonoBehaviour
         range.GetComponent<SpriteRenderer>().enabled = true;
 
         GameManager.Instance.SelectedTower = this;
-        GameManager.Instance.ToggleUpdatePanel();
     }
 
     public void Deselect()
@@ -154,5 +153,7 @@ public class Tower : MonoBehaviour
             Deselect();
         else
             Select();
+
+        GameManager.Instance.ToggleUpdatePanel();
     }
 }
