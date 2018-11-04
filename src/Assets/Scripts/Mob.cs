@@ -192,7 +192,7 @@ public class Mob : MonoBehaviour
 
     private void Start()
     {
-        transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = NumberManager.Instance.GetNumber((int)health);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -213,7 +213,6 @@ public class Mob : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-        transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = NumberManager.Instance.GetNumber((int)health);
         
         if (health <= 0)
             Release();
