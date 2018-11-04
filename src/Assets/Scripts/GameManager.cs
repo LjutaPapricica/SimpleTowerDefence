@@ -16,6 +16,11 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Text currencyText;
 
+    [SerializeField]
+    private GameObject upgradePanel;
+
+    public Tower SelectedTower { get; set; }
+
     private int currency;
     public int Currency
     {
@@ -91,6 +96,8 @@ public class GameManager : Singleton<GameManager>
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Hover.Instance.Deactivate();
+            if (SelectedTower != null)
+                SelectedTower.Deselect();
         }
     }
 
@@ -142,5 +149,10 @@ public class GameManager : Singleton<GameManager>
         activeMobs.Remove(monster);
         if (!IsWaveActive)
             waveButton.SetActive(true);
+    }
+    
+    public void ToggleUpdatePanel()
+    {
+        upgradePanel.SetActive(!upgradePanel.activeSelf);
     }
 }

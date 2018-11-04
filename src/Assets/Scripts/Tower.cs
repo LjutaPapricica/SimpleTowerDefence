@@ -56,7 +56,7 @@ public class Tower : MonoBehaviour
         {
             StartCoroutine(Rotate(transform.position, target.transform.position));
             if (canAttack)
-            { 
+            {
                 Shoot();
                 canAttack = false;
             }
@@ -137,7 +137,8 @@ public class Tower : MonoBehaviour
         isSelected = true;
         range.GetComponent<SpriteRenderer>().enabled = true;
 
-
+        GameManager.Instance.SelectedTower = this;
+        GameManager.Instance.ToggleUpdatePanel();
     }
 
     public void Deselect()
