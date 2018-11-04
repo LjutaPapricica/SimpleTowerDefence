@@ -155,4 +155,15 @@ public class GameManager : Singleton<GameManager>
     {
         upgradePanel.SetActive(!upgradePanel.activeSelf);
     }
+
+    public void SellTower()
+    {
+        if (SelectedTower != null)
+        {
+            SelectedTower.Toggle();
+            Currency += SelectedTower.Price / 2;
+            SelectedTower.GetComponentInParent<TileScript>().IsEmpty = true;
+            Destroy(SelectedTower.gameObject);
+        }
+    }
 }

@@ -92,6 +92,7 @@ public class TileScript : MonoBehaviour
 
         towerObject.transform.SetParent(transform);
         Tower = towerObject.GetComponent<Tower>();
+        Tower.Price = GameManager.Instance.ClickedButton.Price;
 
         IsEmpty = false;
         //GetComponent<BoxCollider2D>().enabled = false;

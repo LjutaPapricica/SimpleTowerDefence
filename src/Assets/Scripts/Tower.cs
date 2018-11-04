@@ -23,13 +23,15 @@ public class Tower : MonoBehaviour
 
     private float attackTimer;
 
+    public int Price { get; set; }
+
     // Use this for initialization
     void Start()
     {
         range = transform.GetChild(0).gameObject;
         Deselect();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
