@@ -9,6 +9,8 @@ public class Mob : MonoBehaviour
 
     [SerializeField]
     private float health;
+
+    private float maxHealth;
     
     public bool IsActive { get; set; }
     private Stack<Node> path;
@@ -29,6 +31,11 @@ public class Mob : MonoBehaviour
     
     public Point GridPosition { get; set; }
     private Vector3 destination;
+
+    private void Start()
+    {
+        maxHealth = health;
+    }
 
     private void Update()
     {
@@ -190,11 +197,6 @@ public class Mob : MonoBehaviour
             Release();
     }
 
-    private void Start()
-    {
-
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Finish")
@@ -213,7 +215,9 @@ public class Mob : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-        
+
+        transform.GetComponentInChildren<BarScript>().ChangeAmount(health, 0, maxHealth);
+
         if (health <= 0)
             Release();
     }
