@@ -17,7 +17,7 @@ public abstract class Tower : MonoBehaviour
     private GameObject range;
 
     private bool isSelected;
-    private Mob target;
+    protected Mob target;
     private Queue<Mob> targets = new Queue<Mob>();
     private bool canAttack = true;
 
@@ -118,6 +118,7 @@ public abstract class Tower : MonoBehaviour
         projectile.Target = target;
         projectile.Damage = damage;
         projectile.ElementType = ElementType;
+        projectile.Parent = this;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -170,4 +171,6 @@ public abstract class Tower : MonoBehaviour
 
         GameManager.Instance.ToggleUpdatePanel();
     }
+
+    public abstract Debuff GetDebuff();
 }

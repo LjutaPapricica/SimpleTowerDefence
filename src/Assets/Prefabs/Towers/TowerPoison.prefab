@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 2
   speed: 5
-  damage: 3
+  damage: 2
   projectileName: Missile
 --- !u!212 &212013748556777336
 SpriteRenderer:

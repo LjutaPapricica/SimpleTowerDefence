@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class FrostTower : Tower
 {
+    public override Debuff GetDebuff()
+    {
+        return new FireDebuff(target);
+    }
+
     public override void Start()
     {
         base.Start();

@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     public float Speed { get; set; }
     public float Damage { get; set; }
     public ElementType ElementType { get; set; }
+    public Tower Parent { get; set; }
 
     // Use this for initialization
     void Start()
@@ -29,6 +30,7 @@ public class Projectile : MonoBehaviour
 
             Target.GetComponent<Mob>().TakeDamage(Damage, ElementType);
             GetComponent<Animator>().SetTrigger("Impact");
+            ApplyDebuff();
         }
     }
 
@@ -47,5 +49,10 @@ public class Projectile : MonoBehaviour
         {
             GameManager.Instance.ObjectPool.ReleaseObject(gameObject);
         }
+    }
+
+    private void ApplyDebuff()
+    {
+        Target.AddDebuff(Parent.GetDebuff());
     }
 }

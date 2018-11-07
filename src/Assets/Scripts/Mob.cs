@@ -15,7 +15,9 @@ public class Mob : MonoBehaviour
 
     private float maxHealth;
     private int invulnerability = 2;
-    
+
+    private HashSet<Debuff> debuffs = new HashSet<Debuff>();
+
     public bool IsActive { get; set; }
     private Stack<Node> path;
     public Stack<Node> Path
@@ -43,6 +45,7 @@ public class Mob : MonoBehaviour
 
     private void Update()
     {
+        HandleDebuffs();
         Move();
     }
 
@@ -227,5 +230,18 @@ public class Mob : MonoBehaviour
 
         if (health <= 0)
             Release();
+    }
+
+    public void AddDebuff(Debuff debuff)
+    {
+        debuffs.Add(debuff);
+    }
+
+    private void HandleDebuffs()
+    {
+        foreach (Debuff debuff in debuffs)
+        {
+            debuff.Update();
+        }
     }
 }
