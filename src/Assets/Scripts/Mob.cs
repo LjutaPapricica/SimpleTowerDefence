@@ -6,6 +6,17 @@ public class Mob : MonoBehaviour
 {
     [SerializeField]
     private float speed;
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+        set
+        {
+            speed = value;
+        }
+    }
 
     [SerializeField]
     private float health;

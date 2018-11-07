@@ -135,6 +135,7 @@ MonoBehaviour:
   debuffDuration: 5
   tickDamage: 2
   tickTime: 1
+  slowingFactor: 50
 --- !u!212 &212143768009500572
 SpriteRenderer:
   m_ObjectHideFlags: 1
