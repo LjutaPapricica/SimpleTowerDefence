@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    public event EventHandler OnCurrencyChanged = delegate { };
+
     public TowerButton ClickedButton { get; set; }
     public ObjectPool ObjectPool { get; set; }
 
@@ -32,6 +35,8 @@ public class GameManager : Singleton<GameManager>
         {
             currency = value;
             currencyText.text = value + "<color=\"lime\">$</color>";
+
+            OnCurrencyChanged(this, new EventArgs());
         }
     }
 
@@ -112,7 +117,7 @@ public class GameManager : Singleton<GameManager>
     {
         for (int i = 0; i < 5; ++i)
         {
-            int mobIndex = Random.Range(0, 3);
+            int mobIndex = UnityEngine.Random.Range(0, 3);
             string type = string.Empty;
 
             switch (mobIndex)
