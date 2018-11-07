@@ -17,6 +17,8 @@ public class Mob : MonoBehaviour
     private int invulnerability = 2;
 
     private HashSet<Debuff> debuffs = new HashSet<Debuff>();
+    private HashSet<Debuff> debuffsToRemove = new HashSet<Debuff>();
+    private HashSet<Debuff> newDebuffs = new HashSet<Debuff>();
 
     public bool IsActive { get; set; }
     private Stack<Node> path;
@@ -234,14 +236,26 @@ public class Mob : MonoBehaviour
 
     public void AddDebuff(Debuff debuff)
     {
-        debuffs.Add(debuff);
+        newDebuffs.Add(debuff);
     }
 
     private void HandleDebuffs()
     {
+        foreach (Debuff debuff in newDebuffs)
+            debuffs.Add(debuff);
+
         foreach (Debuff debuff in debuffs)
-        {
             debuff.Update();
-        }
+
+        foreach (Debuff debuff in debuffsToRemove)
+            debuffs.Remove(debuff);
+
+        newDebuffs.Clear();
+        debuffsToRemove.Clear();
+    }
+
+    public void RemoveDebuff(Debuff debuff)
+    {
+        debuffsToRemove.Add(debuff);
     }
 }

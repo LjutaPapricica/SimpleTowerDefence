@@ -6,7 +6,7 @@ public class FrostTower : Tower
 {
     public override Debuff GetDebuff()
     {
-        return new FireDebuff(target);
+        return new FireDebuff(tickTime, tickDamage, debuffDuration, target);
     }
 
     public override void Start()

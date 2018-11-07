@@ -31,6 +31,12 @@ public abstract class Tower : MonoBehaviour
     private float damage;
     [SerializeField]
     private string projectileName;
+    [SerializeField]
+    protected float debuffDuration;
+    [SerializeField]
+    protected float tickDamage;
+    [SerializeField]
+    protected float tickTime;
 
     private float attackTimer;
 
