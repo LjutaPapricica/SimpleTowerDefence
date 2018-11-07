@@ -6,7 +6,7 @@ public class StormTower : Tower
 {
     public override Debuff GetDebuff()
     {
-        return new FireDebuff(tickTime, tickDamage, debuffDuration, target);
+        return new StormDebuff(debuffDuration, target);
     }
 
     public override void Start()
