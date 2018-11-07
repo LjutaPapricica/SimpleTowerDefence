@@ -132,6 +132,9 @@ MonoBehaviour:
   speed: 5
   damage: 2
   projectileName: Missile
+  debuffDuration: 5
+  tickDamage: 2
+  tickTime: 1
 --- !u!212 &212013748556777336
 SpriteRenderer:
   m_ObjectHideFlags: 1
