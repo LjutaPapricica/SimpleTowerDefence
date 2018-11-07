@@ -37,7 +37,7 @@ public abstract class Tower : MonoBehaviour
     public int Price { get; set; }
 
     // Use this for initialization
-    void Start()
+    public virtual void Start()
     {
         range = transform.GetChild(0).gameObject;
         Deselect();

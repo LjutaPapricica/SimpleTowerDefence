@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FrostTower : Tower
 {
-    public void Start()
+    public override void Start()
     {
+        base.Start();
         ElementType = ElementType.Frost;
     }
 }
