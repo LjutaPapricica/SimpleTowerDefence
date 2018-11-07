@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4441157788902840}
   - component: {fileID: 212544329237218804}
-  - component: {fileID: 114292299941570488}
   - component: {fileID: 58252682004089292}
+  - component: {fileID: 114920426613434994}
   m_Layer: 2
   m_Name: TowerPoison
   m_TagString: Untagged
@@ -117,7 +117,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &114292299941570488
+--- !u!114 &114920426613434994
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -125,13 +125,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1252960946838504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1561e5ba947ee34490f01a1c74d0dde, type: 3}
+  m_Script: {fileID: 11500000, guid: 9db2956d744da174e9d86c8a46f08d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 1.5
-  speed: 3
-  damage: 1
-  projectileName: Fire
+  cooldown: 2
+  speed: 5
+  damage: 3
+  projectileName: Missile
 --- !u!212 &212013748556777336
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -145,6 +145,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -189,6 +190,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -233,6 +235,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:

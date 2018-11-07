@@ -3,7 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Tower : MonoBehaviour
+public enum ElementType
+{
+    None,
+    Storm,
+    Fire,
+    Frost,
+    Poison
+}
+
+public abstract class Tower : MonoBehaviour
 {
     private GameObject range;
 
@@ -11,6 +20,8 @@ public class Tower : MonoBehaviour
     private Mob target;
     private Queue<Mob> targets = new Queue<Mob>();
     private bool canAttack = true;
+
+    public ElementType ElementType { get; protected set; }
 
     [SerializeField]
     private float cooldown;
@@ -106,6 +117,7 @@ public class Tower : MonoBehaviour
         projectile.Speed = speed;
         projectile.Target = target;
         projectile.Damage = damage;
+        projectile.ElementType = ElementType;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

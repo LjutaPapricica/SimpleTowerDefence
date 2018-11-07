@@ -283,7 +283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb727d62f9175249b69dfea8ac07812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillAmount: 1
   fill: {fileID: 114662039217871180}
 --- !u!114 &114533111081907632
 MonoBehaviour:
@@ -346,6 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   health: 5
+  elementType: 2
 --- !u!212 &212033156118656180
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -359,6 +359,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -403,6 +404,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:

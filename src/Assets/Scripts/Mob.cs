@@ -10,7 +10,11 @@ public class Mob : MonoBehaviour
     [SerializeField]
     private float health;
 
+    [SerializeField]
+    private ElementType elementType;
+
     private float maxHealth;
+    private int invulnerability = 2;
     
     public bool IsActive { get; set; }
     private Stack<Node> path;
@@ -212,8 +216,11 @@ public class Mob : MonoBehaviour
         GameManager.Instance.RemoveMonster(this);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, ElementType elementType)
     {
+        if (elementType == this.elementType)
+            damage /= invulnerability++;
+        
         health -= damage;
 
         transform.GetComponentInChildren<BarScript>().ChangeAmount(health, 0, maxHealth);

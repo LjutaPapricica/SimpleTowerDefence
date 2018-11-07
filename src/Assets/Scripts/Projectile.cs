@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     public Mob Target { get; set; }
     public float Speed { get; set; }
     public float Damage { get; set; }
+    public ElementType ElementType { get; set; }
 
     // Use this for initialization
     void Start()
@@ -26,7 +27,7 @@ public class Projectile : MonoBehaviour
         {
             Debug.Log(collision);
 
-            Target.GetComponent<Mob>().TakeDamage(Damage);
+            Target.GetComponent<Mob>().TakeDamage(Damage, ElementType);
             GetComponent<Animator>().SetTrigger("Impact");
         }
     }
