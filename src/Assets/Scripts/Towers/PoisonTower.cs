@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PoisonTower : Tower
 {
+    [SerializeField]
+    private PoisonSplash poisonPrefab;
+
     public override Debuff GetDebuff()
     {
-        return new FireDebuff(tickTime, tickDamage, debuffDuration, target);
+        return new PoisonDebuff(tickTime, tickDamage, debuffDuration, poisonPrefab, target);
     }
 
     public override void Start()

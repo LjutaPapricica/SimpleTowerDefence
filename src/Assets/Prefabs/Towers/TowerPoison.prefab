@@ -130,11 +130,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 2
   speed: 5
-  damage: 2
+  damage: 1
   projectileName: Missile
-  debuffDuration: 5
+  debuffDuration: 4
   tickDamage: 2
-  tickTime: 1
+  tickTime: 3
+  poisonPrefab: {fileID: 114133670616463902, guid: 601303d48f000c445b353a0ed6269d7d,
+    type: 2}
 --- !u!212 &212013748556777336
 SpriteRenderer:
   m_ObjectHideFlags: 1
