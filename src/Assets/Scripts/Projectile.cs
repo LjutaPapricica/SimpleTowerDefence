@@ -31,6 +31,8 @@ public class Projectile : MonoBehaviour
             Target.GetComponent<Mob>().TakeDamage(Damage, ElementType);
             GetComponent<Animator>().SetTrigger("Impact");
             ApplyDebuff();
+
+            SoundManager.Instance.PlayAudio("Explosion");
         }
     }
 

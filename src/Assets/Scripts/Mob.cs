@@ -213,6 +213,8 @@ public class Mob : MonoBehaviour
 
         transform.localScale = to;
         IsActive = true;
+
+        SoundManager.Instance.PlayAudio("Spawn");
         if (remove)
             Release();
     }
