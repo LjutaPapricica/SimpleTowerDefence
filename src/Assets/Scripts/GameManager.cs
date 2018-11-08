@@ -84,6 +84,7 @@ public class GameManager : Singleton<GameManager>
         {
             ClickedButton = towerButton;
             Hover.Instance.Activate(towerButton.Sprite);
+            SoundManager.Instance.PlayAudio("ButtonPress");
         }
     }
 
@@ -93,6 +94,7 @@ public class GameManager : Singleton<GameManager>
         {
             Currency -= ClickedButton.Price;
             Hover.Instance.Deactivate();
+            SoundManager.Instance.PlayAudio("ButtonPress");
         }
     }
 
