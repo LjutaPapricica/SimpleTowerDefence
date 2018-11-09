@@ -69,7 +69,11 @@ public class TileScript : MonoBehaviour
                     }
                 }
                 else
+                {
                     ColorTile(redColor);
+                    if (Input.GetMouseButtonDown(0))
+                        SoundManager.Instance.PlayAudio("TileRed");
+                }
             }
             else if (Input.GetMouseButtonDown(0) && transform.childCount > 0)
             {

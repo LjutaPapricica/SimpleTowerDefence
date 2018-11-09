@@ -84,7 +84,7 @@ public class GameManager : Singleton<GameManager>
         {
             ClickedButton = towerButton;
             Hover.Instance.Activate(towerButton.Sprite);
-            SoundManager.Instance.PlayAudio("ButtonPress");
+            SoundManager.Instance.PlayAudio("Click");
         }
     }
 
@@ -94,7 +94,7 @@ public class GameManager : Singleton<GameManager>
         {
             Currency -= ClickedButton.Price;
             Hover.Instance.Deactivate();
-            SoundManager.Instance.PlayAudio("ButtonPress");
+            SoundManager.Instance.PlayAudio("TowerPlaced");
         }
     }
 
@@ -102,6 +102,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            SoundManager.Instance.PlayAudio("TowerNotPlaced");
             Hover.Instance.Deactivate();
             if (SelectedTower != null)
                 SelectedTower.Toggle();
@@ -110,6 +111,7 @@ public class GameManager : Singleton<GameManager>
 
     public void StartWave()
     {
+        SoundManager.Instance.PlayAudio("ButtonPress");
         ++WaveNumber;
         waveButton.SetActive(false);
         StartCoroutine(SpawnWave());
@@ -157,7 +159,7 @@ public class GameManager : Singleton<GameManager>
         if (!IsWaveActive)
             waveButton.SetActive(true);
     }
-    
+
     public void ToggleUpdatePanel()
     {
         upgradePanel.SetActive(!upgradePanel.activeSelf);
