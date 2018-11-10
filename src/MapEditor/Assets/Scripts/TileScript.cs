@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Tile : MonoBehaviour, IPointerClickHandler
+public class TileScript : MonoBehaviour, IPointerClickHandler
 {
-    public Tile Initialize(int x, int y)
+    public TileScript Initialize(int x, int y)
     {
         X = x;
         Y = y;
@@ -16,12 +16,22 @@ public class Tile : MonoBehaviour, IPointerClickHandler
         return this;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void Start()
     {
-        GetComponent<Image>().color = Color.blue;
+        image = GetComponent<Image>();
     }
 
-    public Image Image { get; set; }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Map.Instance.SelectTile(this);
+    }
+
+    public void ChangeSprite(Sprite sprite)
+    {
+        image.sprite = sprite;
+    }
+
+    private Image image;
     public int X { get; set; }
     public int Y { get; set; }
 
