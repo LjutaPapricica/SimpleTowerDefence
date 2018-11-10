@@ -85,12 +85,21 @@ public class Map : Singleton<Map>
         if (selectedSprite != null)
             tile.ChangeSprite(selectedSprite.GetComponent<Image>().sprite);
     }
-    
+
     public void SelectSprite(SpriteScript sprite)
     {
         if (selectedSprite != null)
             selectedSprite.Deselect();
 
         selectedSprite = sprite;
+    }
+
+    public void AddToTile(TileScript tile)
+    {
+        if (selectedSprite != null)
+            tile.AddImage(selectedSprite.GetComponent<Image>().sprite);
+        else
+            tile.ClearNested();
+
     }
 }
