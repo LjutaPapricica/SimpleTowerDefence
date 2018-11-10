@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public static  class ImageHelper
 {
-    public static GameObject CreateImage(Sprite sprite, Transform parent)
+    public static GameObject CreateImage(Sprite sprite, Transform parent, string name)
     {
         GameObject imageObject = new GameObject();
-        imageObject.name = "Image";
+        imageObject.name = name;
         imageObject.transform.SetParent(parent);
         imageObject.SetActive(true);
         
@@ -17,17 +17,17 @@ public static  class ImageHelper
         return imageObject;
     }
 
-    public static GameObject CreateImage(Sprite sprite, Transform parent, Vector3 scale)
+    public static GameObject CreateImage(Sprite sprite, Transform parent, string name, Vector3 scale)
     {
-        GameObject imageObject = CreateImage(sprite, parent);
+        GameObject imageObject = CreateImage(sprite, parent, name);
         imageObject.GetComponent<Image>().transform.localScale = scale;
 
         return imageObject;
     }
 
-    public static GameObject CreateImage(Sprite sprite, Transform parent, Vector3 position, Vector3 scale)
+    public static GameObject CreateImage(Sprite sprite, Transform parent, string name, Vector3 position, Vector3 scale)
     {
-        GameObject imageObject = CreateImage(sprite, parent);
+        GameObject imageObject = CreateImage(sprite, parent, name);
         Image image = imageObject.GetComponent<Image>();
         image.transform.localScale = scale;
         image.transform.position = position;

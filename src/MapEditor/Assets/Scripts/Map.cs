@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -59,14 +60,14 @@ public class Map : Singleton<Map>
         sprites = Resources.LoadAll<Sprite>("Sprites");
         foreach (Sprite sprite in sprites)
         {
-            GameObject spriteObject = ImageHelper.CreateImage(sprite, spritesLayout.transform);
+            GameObject spriteObject = ImageHelper.CreateImage(sprite, spritesLayout.transform, sprite.name);
             spriteObject.AddComponent<SpriteScript>();
         }
     }
 
     public Image CreateItem(string name)
     {
-        GameObject image = ImageHelper.CreateImage(sprites.First(s => s.name == name), grid.transform, new Vector3(1, 1, 1));
+        GameObject image = ImageHelper.CreateImage(sprites.First(s => s.name == name), grid.transform, name, new Vector3(1, 1, 1));
         return image.GetComponent<Image>();
     }
 
@@ -90,5 +91,25 @@ public class Map : Singleton<Map>
             tile.AddImage(selectedSprite.GetComponent<Image>().sprite);
         else
             tile.ClearNested();
+    }
+
+    public void Serialize()
+    {
+        Level level = new Level
+        {
+            Tiles = images.Select(i => new Tile
+            {
+                Location = new Vector2(i.X, i.Y),
+                Type = i.Type,
+                Items = i.NestedImages.Select(n => new Item
+                {
+                    Type = n.name
+                }).ToList()
+            }).ToList()
+        };
+
+        string json = JsonUtility.ToJson(level);
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, "level.json"), json);
+        Debug.Log(Path.Combine(Application.persistentDataPath, "level.json"));
     }
 }

@@ -8,7 +8,16 @@ using UnityEngine.UI;
 
 public class TileScript : MonoBehaviour, IPointerClickHandler
 {
-    private List<GameObject> nestedImages = new List<GameObject>();
+    public string Type
+    {
+        get
+        {
+            return image.name;
+        }
+    }
+    
+    public List<GameObject> NestedImages { get; set; }
+
     public TileScript Initialize(int x, int y)
     {
         X = x;
@@ -20,6 +29,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         image = GetComponent<Image>();
+        NestedImages = new List<GameObject>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -32,22 +42,23 @@ public class TileScript : MonoBehaviour, IPointerClickHandler
 
     public void ChangeSprite(Sprite sprite)
     {
+        image.name = sprite.name;
         image.sprite = sprite;
         ClearNested();
     }
 
     public void AddImage(Sprite sprite)
     {
-        GameObject imageObject = ImageHelper.CreateImage(sprite, image.transform, image.transform.position, new Vector3(0.3f, 0.3f));
-        nestedImages.Add(imageObject);
+        GameObject imageObject = ImageHelper.CreateImage(sprite, image.transform, sprite.name, image.transform.position, new Vector3(0.3f, 0.3f));
+        NestedImages.Add(imageObject);
     }
 
     public void ClearNested()
     {
-        foreach (GameObject im in nestedImages)
+        foreach (GameObject im in NestedImages)
             Destroy(im);
 
-        nestedImages.Clear();
+        NestedImages.Clear();
     }
 
     private Image image;
