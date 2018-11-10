@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Map : MonoBehaviour
+public class Map : Singleton<Map>
 {
     [SerializeField]
     private int rows;
@@ -14,7 +15,7 @@ public class Map : MonoBehaviour
     private GridLayoutGroup grid;
     private Sprite[] sprites;
 
-    private Image[][] images;
+    private readonly List<Tile> images = new List<Tile>();
     
     // Use this for initialization
     void Start()
@@ -24,15 +25,14 @@ public class Map : MonoBehaviour
 
         grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         grid.constraintCount = columns;
-
-        images = new Image[rows][];
+        
         for (int i = 0; i < rows; ++i)
         {
-            images[i] = new Image[columns];
-
             for (int j = 0; j < columns; ++j)
             {
-                images[i][j] = CreateItem("Grass");
+                Image image = CreateItem("Grass");
+                Tile tile = image.gameObject.AddComponent<Tile>().Initialize(i, j);
+                images.Add(tile);
             }
         }
     }
