@@ -27,7 +27,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
             Map.Instance.SelectTile(this);
         else if (eventData.button == PointerEventData.InputButton.Right)
-            Map.Instance.AddToTile(this);
+            Map.Instance.ContextTile(this);
     }
 
     public void ChangeSprite(Sprite sprite)
@@ -38,15 +38,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler
 
     public void AddImage(Sprite sprite)
     {
-        GameObject imageObject = new GameObject();
-        Image nested = imageObject.AddComponent<Image>();
-        nested.sprite = sprite;
-        imageObject.name = "Image";
-        imageObject.transform.SetParent(image.transform);
-        imageObject.transform.position = image.transform.position;
-        imageObject.transform.localScale = new Vector3(0.3f, 0.3f);
-        imageObject.SetActive(true);
-
+        GameObject imageObject = ImageHelper.CreateImage(sprite, image.transform, image.transform.position, new Vector3(0.3f, 0.3f));
         nestedImages.Add(imageObject);
     }
 

@@ -9,8 +9,10 @@ public class Map : Singleton<Map>
 {
     [SerializeField]
     private int rows;
+
     [SerializeField]
     private int columns;
+
     [SerializeField]
     private GridLayoutGroup spritesLayout;
 
@@ -57,27 +59,15 @@ public class Map : Singleton<Map>
         sprites = Resources.LoadAll<Sprite>("Sprites");
         foreach (Sprite sprite in sprites)
         {
-            GameObject imageObject = new GameObject();
-            imageObject.AddComponent<SpriteScript>();
-            Image image = imageObject.AddComponent<Image>();
-            image.sprite = sprite;
-            imageObject.name = "Sprite";
-            imageObject.transform.SetParent(spritesLayout.transform);
-            imageObject.SetActive(true);
+            GameObject spriteObject = ImageHelper.CreateImage(sprite, spritesLayout.transform);
+            spriteObject.AddComponent<SpriteScript>();
         }
     }
 
     public Image CreateItem(string name)
     {
-        GameObject imageObject = new GameObject();
-        Image image = imageObject.AddComponent<Image>();
-        image.sprite = sprites.First(s => s.name == name);
-        imageObject.name = "Image";
-        imageObject.transform.SetParent(grid.transform);
-        imageObject.SetActive(true);
-
-        image.transform.localScale = new Vector3(1, 1, 1);
-        return image;
+        GameObject image = ImageHelper.CreateImage(sprites.First(s => s.name == name), grid.transform, new Vector3(1, 1, 1));
+        return image.GetComponent<Image>();
     }
 
     public void SelectTile(TileScript tile)
@@ -94,12 +84,11 @@ public class Map : Singleton<Map>
         selectedSprite = sprite;
     }
 
-    public void AddToTile(TileScript tile)
+    public void ContextTile(TileScript tile)
     {
         if (selectedSprite != null)
             tile.AddImage(selectedSprite.GetComponent<Image>().sprite);
         else
             tile.ClearNested();
-
     }
 }

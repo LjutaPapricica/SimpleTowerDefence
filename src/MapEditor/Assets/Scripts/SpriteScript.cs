@@ -6,15 +6,22 @@ using UnityEngine.UI;
 
 public class SpriteScript : MonoBehaviour, IPointerClickHandler
 {
+    private Image image;
+
+    private void Start()
+    {
+        image = GetComponent<Image>();
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         Map.Instance.SelectSprite(this);
-        GetComponent<Image>().color = new Color(0, 178, 0, 50);
+        image.color = new Color(0, 178, 0, 50);
     }
 
 
     public void Deselect()
     {
-        GetComponent<Image>().color = Color.white;
+        image.color = Color.white;
     }
 }
