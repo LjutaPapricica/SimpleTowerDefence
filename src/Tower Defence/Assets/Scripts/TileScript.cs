@@ -18,7 +18,7 @@ public struct Point
 public class TileScript : MonoBehaviour
 {
     public Point GridPosition { get; set; }
-    public int Type { get; set; }
+    public bool IsWalkable { get; set; }
 
     private Color32 redColor = new Color32(255, 118, 118, 255);
     private Color32 greenColor = new Color32(96, 255, 92, 255);
@@ -40,9 +40,9 @@ public class TileScript : MonoBehaviour
 
     }
 
-    public void Setup(int type, Point point, Vector3 worldPoint)
+    public void Setup(bool isWalkable, Point point, Vector3 worldPoint)
     {
-        Type = type;
+        IsWalkable = isWalkable;
         IsEmpty = true;
         GridPosition = point;
         transform.position = worldPoint;
@@ -59,7 +59,7 @@ public class TileScript : MonoBehaviour
         {
             if (GameManager.Instance.ClickedButton != null)
             {
-                if (IsEmpty && Type == 0)
+                if (IsEmpty && !IsWalkable)
                 {
                     ColorTile(greenColor);
 

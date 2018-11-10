@@ -61,11 +61,13 @@ public class FloorManager : Singleton<FloorManager>
             GameObject tileObject = new GameObject();
             tileObject.SetActive(true);
 
-            tileObject.AddComponent<SpriteRenderer>().sprite = sprites.First(s => s.name == tile.Type);
+            tileObject.AddComponent<BoxCollider2D>().isTrigger = true;
+
+            Sprite sprite = sprites.First(s => s.name == tile.Type);
+            tileObject.AddComponent<SpriteRenderer>().sprite = sprite;
             TileScript script = tileObject.AddComponent<TileScript>();
             Vector3 location = new Vector3(worldStart.x + TileSize * tile.Location.y + TileSize / 2, worldStart.y - TileSize * tile.Location.x - TileSize / 2, 1);
-            script.Setup(0, new Point((int)tile.Location.x, (int)tile.Location.y), location);
-
+            script.Setup(IsWalkable(sprite), new Point((int)tile.Location.x, (int)tile.Location.y), location);
         }
 
         //maxTile = TileScripts[new Point(map.Length - 1, map[0].Length - 1)].transform.position;
@@ -73,6 +75,11 @@ public class FloorManager : Singleton<FloorManager>
 
         SpawnPortals((int)map.Tiles.Last().Location.x);
         GeneratePath();
+    }
+
+    private bool IsWalkable(Sprite sprite)
+    {
+        return sprite.name.ToLower().Contains("road") || sprite.name.ToLower().Contains("steel");
     }
 
     private Level LoadMap()

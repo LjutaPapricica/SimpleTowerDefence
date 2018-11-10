@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class Node
 {
     public Point GridPosition { get; set; }
     public Vector2 WorldPosition { get; set; }
