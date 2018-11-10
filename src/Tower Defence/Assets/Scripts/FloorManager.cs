@@ -51,32 +51,34 @@ public class FloorManager : Singleton<FloorManager>
     private void CreateLevel()
     {
         TileScripts = new Dictionary<Point, TileScript>();
-        string[] map = LoadMap();
+        Level map = LoadMap();
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites");
 
         Vector3 maxTile = Vector3.zero;
         Vector3 worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
-        for (int i = 0; i < map.Length; ++i)
+        foreach (Tile tile in map.Tiles)
         {
-            for (int j = 0; j < map[0].Length; ++j)
-            {
-                int tileIndex = map[i][j] - '0';
+            GameObject tileObject = new GameObject();
+            tileObject.SetActive(true);
 
-                TileScript newTile = Instantiate(tiles[tileIndex]).GetComponent<TileScript>();
-                newTile.Setup(tileIndex, new Point(i, j), new Vector3(worldStart.x + TileSize * j + TileSize / 2, worldStart.y - TileSize * i - TileSize / 2, 1));
-            }
+            tileObject.AddComponent<SpriteRenderer>().sprite = sprites.First(s => s.name == tile.Type);
+            TileScript script = tileObject.AddComponent<TileScript>();
+            Vector3 location = new Vector3(worldStart.x + TileSize * tile.Location.y + TileSize / 2, worldStart.y - TileSize * tile.Location.x - TileSize / 2, 1);
+            script.Setup(0, new Point((int)tile.Location.x, (int)tile.Location.y), location);
+
         }
 
-        maxTile = TileScripts[new Point(map.Length - 1, map[0].Length - 1)].transform.position;
-        cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
+        //maxTile = TileScripts[new Point(map.Length - 1, map[0].Length - 1)].transform.position;
+        //cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
 
-        SpawnPortals(map[0].Length);
+        SpawnPortals((int)map.Tiles.Last().Location.x);
         GeneratePath();
     }
 
-    private string[] LoadMap()
+    private Level LoadMap()
     {
-        TextAsset mapAsset = Resources.Load("Level") as TextAsset;
-        return mapAsset.text.Split(Environment.NewLine.ToCharArray()).Where(i => !String.IsNullOrEmpty(i)).ToArray();
+        TextAsset mapAsset = Resources.Load("Maps\\level1") as TextAsset;
+        return JsonUtility.FromJson<Level>(mapAsset.text);
     }
 
     private void SpawnPortals(int width)

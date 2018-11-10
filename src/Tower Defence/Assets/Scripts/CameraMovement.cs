@@ -47,7 +47,7 @@ public class CameraMovement : MonoBehaviour
     {
         Vector3 wp = Camera.main.ViewportToWorldPoint(new Vector3(1, 0));
 
-        maxWidth = maxTile.x - wp.x;
-        minHeight = maxTile.y - wp.y;
+        //maxWidth = maxTile.x - wp.x;
+        //minHeight = maxTile.y - wp.y;
     }
 }
