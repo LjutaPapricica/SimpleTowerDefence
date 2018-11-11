@@ -165,6 +165,7 @@ MonoBehaviour:
   debuffDuration: 4
   tickDamage: 2
   tickTime: 3
+  gunSprite: {fileID: 1386197599566838}
   poisonPrefab: {fileID: 114133670616463902, guid: 601303d48f000c445b353a0ed6269d7d,
     type: 2}
 --- !u!212 &212013748556777336

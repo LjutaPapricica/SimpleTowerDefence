@@ -165,6 +165,7 @@ MonoBehaviour:
   debuffDuration: 5
   tickDamage: 2
   tickTime: 1
+  gunSprite: {fileID: 1290684183918022}
   slowingFactor: 50
 --- !u!212 &212046855038728238
 SpriteRenderer:

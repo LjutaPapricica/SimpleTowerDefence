@@ -165,6 +165,7 @@ MonoBehaviour:
   debuffDuration: 1
   tickDamage: 2
   tickTime: 1
+  gunSprite: {fileID: 1722129128387382}
 --- !u!212 &212228696778739646
 SpriteRenderer:
   m_ObjectHideFlags: 1

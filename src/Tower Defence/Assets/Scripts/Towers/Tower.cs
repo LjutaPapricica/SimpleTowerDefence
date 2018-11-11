@@ -37,6 +37,8 @@ public abstract class Tower : MonoBehaviour
     protected float tickDamage;
     [SerializeField]
     protected float tickTime;
+    [SerializeField]
+    private GameObject gunSprite;
 
     private float attackTimer;
 
@@ -73,7 +75,7 @@ public abstract class Tower : MonoBehaviour
         }
         if (target != null && target.IsActive)
         {
-            StartCoroutine(Rotate(transform.position, target.transform.position));
+            StartCoroutine(Rotate(gunSprite.transform.position, target.transform.position));
             if (canAttack)
             {
                 Shoot();
@@ -92,13 +94,13 @@ public abstract class Tower : MonoBehaviour
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         while (progress <= 1)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, progress);
+            gunSprite.transform.rotation = Quaternion.Slerp(gunSprite.transform.rotation, rotation, progress);
             progress += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.rotation = rotation;
+        gunSprite.transform.rotation = rotation;
     }
 
     private IEnumerator ResetRotation(Vector2 from)
