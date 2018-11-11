@@ -31,7 +31,9 @@ public class FrostDebuff : Debuff
 
     public override void Remove()
     {
-        target.Speed = maxSpeed;
+        if (target != null)
+            target.Speed = maxSpeed;
+        
         base.Remove();
     }
 }

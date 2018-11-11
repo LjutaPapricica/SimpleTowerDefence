@@ -9,8 +9,7 @@ public class Hover : Singleton<Hover>
     {
         FollowMouse();
     }
-
-    private bool selected;
+    
     private void FollowMouse()
     {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
