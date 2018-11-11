@@ -15,9 +15,7 @@ public class TowerButton : MonoBehaviour
             return button;
         }
     }
-
-    [SerializeField]
-    private Sprite sprite;
+    
 
     [SerializeField]
     private int price;
@@ -26,14 +24,6 @@ public class TowerButton : MonoBehaviour
         get
         {
             return price;
-        }
-    }
-
-    public Sprite Sprite
-    {
-        get
-        {
-            return sprite;
         }
     }
 

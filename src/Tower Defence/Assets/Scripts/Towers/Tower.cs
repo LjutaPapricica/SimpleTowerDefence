@@ -44,11 +44,15 @@ public abstract class Tower : MonoBehaviour
 
     public int Price { get; set; }
 
+    public bool Hover { get; set; }
+
     // Use this for initialization
     public virtual void Start()
     {
         range = transform.GetChild(0).gameObject;
-        Deselect();
+        
+        if (!Hover)
+            Deselect();
     }
     
     // Update is called once per frame

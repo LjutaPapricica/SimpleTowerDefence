@@ -83,7 +83,7 @@ public class GameManager : Singleton<GameManager>
         if (currency >= towerButton.Price && !IsWaveActive)
         {
             ClickedButton = towerButton;
-            Hover.Instance.Activate(towerButton.Sprite);
+            Hover.Instance.Activate(towerButton.Button);
             SoundManager.Instance.PlayAudio("Click");
         }
     }

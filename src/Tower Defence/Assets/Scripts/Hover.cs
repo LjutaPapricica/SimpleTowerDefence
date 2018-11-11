@@ -4,34 +4,29 @@ using UnityEngine;
 
 public class Hover : Singleton<Hover>
 {
-    private SpriteRenderer spriteRenderer;
-
-    // Use this for initialization
-    void Start()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
     // Update is called once per frame
     void Update()
     {
         FollowMouse();
     }
 
+    private bool selected;
     private void FollowMouse()
     {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
     }
 
-    public void Activate(Sprite sprite)
+    private GameObject hoverObject;
+    public void Activate(GameObject prefab)
     {
-        spriteRenderer.sprite = sprite;
+        hoverObject = Instantiate(prefab, transform);
+        hoverObject.GetComponent<Tower>().Hover = true;
     }
 
     public void Deactivate()
     {
         GameManager.Instance.ClickedButton = null;
-        spriteRenderer.sprite = null;
+        Destroy(hoverObject);
     }
 }
