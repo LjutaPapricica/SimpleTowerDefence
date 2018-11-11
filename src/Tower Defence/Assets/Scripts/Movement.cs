@@ -11,35 +11,28 @@ public class Node
 
 public class Movement : MonoBehaviour
 {
-    public Stack<Node> GeneratePath()
+    public Stack<Node> Create(string waypointFile)
     {
-        var tiles = FloorManager.Instance.TileScripts;
+        Stack<Node> path = new Stack<Node>();
 
-        List<TileScript> path = new List<TileScript>
+        foreach (string route in waypointFile.Split(System.Environment.NewLine.ToCharArray()))
         {
-            tiles[new Point(0, 1)],
-            tiles[new Point(1, 1)], tiles[new Point(2, 1)], tiles[new Point(3, 1)], tiles[new Point(4, 1)], tiles[new Point(5, 1)],
-            tiles[new Point(5, 2)],
-            tiles[new Point(5, 3)], tiles[new Point(4, 3)],tiles[new Point(3, 3)],tiles[new Point(2, 3)],tiles[new Point(1, 3)],
-            tiles[new Point(0, 3)],
-            tiles[new Point(0, 4)],
-            tiles[new Point(0, 5)], tiles[new Point(1, 5)],tiles[new Point(2, 5)],tiles[new Point(3, 5)],tiles[new Point(4, 5)],
-            tiles[new Point(5, 5)],
-            tiles[new Point(5, 6)], tiles[new Point(5, 7)],
-            tiles[new Point(4, 7)],tiles[new Point(3, 7)],tiles[new Point(2, 7)],tiles[new Point(1, 7)],
-            tiles[new Point(0, 7)],
-            tiles[new Point(0, 8)],
-            tiles[new Point(0, 9)], tiles[new Point(1, 9)],tiles[new Point(2, 9)],tiles[new Point(3, 9)],tiles[new Point(4, 9)],
-            tiles[new Point(5, 9)],
-            tiles[new Point(5, 10)],tiles[new Point(5, 11)], tiles[new Point(5, 12)],
-            tiles[new Point(4, 12)],tiles[new Point(3, 12)],tiles[new Point(2, 12)],tiles[new Point(1, 12)],
-            tiles[new Point(0, 12)]
-        };
+            if (System.String.IsNullOrEmpty(route))
+                continue;
 
-        return new Stack<Node>(path.Select(t => new Node
-        {
-            GridPosition = t.GridPosition,
-            WorldPosition = t.transform.position
-        }));
+            string[] coords = route.Split(',');
+            int x = System.Int32.Parse(coords[0]);
+            int y = System.Int32.Parse(coords[1]);
+
+            TileScript targetTile = FloorManager.Instance.TileScripts[new Point(x, y)];
+
+            path.Push(new Node
+            {
+                GridPosition = targetTile.GridPosition,
+                WorldPosition = targetTile.transform.position
+            });
+        }
+
+        return path;
     }
 }

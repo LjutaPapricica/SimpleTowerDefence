@@ -51,7 +51,7 @@ public class FloorManager : Singleton<FloorManager>
     private void CreateLevel()
     {
         TileScripts = new Dictionary<Point, TileScript>();
-        Level map = LoadMap();
+        Level map = LoadMap("level1");
         Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites");
 
         Vector3 maxTile = Vector3.zero;
@@ -74,7 +74,7 @@ public class FloorManager : Singleton<FloorManager>
         //cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
 
         SpawnPortals((int)map.Tiles.Last().Location.x);
-        GeneratePath();
+        GeneratePath("level1");
     }
 
     private bool IsWalkable(Sprite sprite)
@@ -82,9 +82,9 @@ public class FloorManager : Singleton<FloorManager>
         return sprite.name.ToLower().Contains("road") || sprite.name.ToLower().Contains("steel");
     }
 
-    private Level LoadMap()
+    private Level LoadMap(string level)
     {
-        TextAsset mapAsset = Resources.Load("Maps\\level1") as TextAsset;
+        TextAsset mapAsset = Resources.Load("Maps\\"+ level) as TextAsset;
         return JsonUtility.FromJson<Level>(mapAsset.text);
     }
 
@@ -97,8 +97,9 @@ public class FloorManager : Singleton<FloorManager>
         EndPoint = Instantiate(endObject, TileScripts[finish].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
     }
 
-    private void GeneratePath()
+    private void GeneratePath(string level)
     {
-        FinalPath = GetComponent<Movement>().GeneratePath();
+        TextAsset waypoint = Resources.Load("Waypoints\\" + level) as TextAsset;
+        FinalPath = GetComponent<Movement>().Create(waypoint.text);
     }
 }
