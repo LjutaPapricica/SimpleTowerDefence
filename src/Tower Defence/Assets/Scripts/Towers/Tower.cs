@@ -113,13 +113,13 @@ public abstract class Tower : MonoBehaviour
 
         while (progress <= 1)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, progress);
+            gunSprite.transform.rotation = Quaternion.Slerp(gunSprite.transform.rotation, Quaternion.identity, progress);
             progress += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.rotation = Quaternion.identity;
+        gunSprite.transform.rotation = Quaternion.identity;
     }
 
     private void Shoot()
@@ -150,7 +150,7 @@ public abstract class Tower : MonoBehaviour
             target = null;
 
             if (targets.Count == 0)
-                StartCoroutine(ResetRotation(transform.position));
+                StartCoroutine(ResetRotation(gunSprite.transform.position));
         }
     }
 
