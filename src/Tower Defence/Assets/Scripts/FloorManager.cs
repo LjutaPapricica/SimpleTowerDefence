@@ -73,8 +73,8 @@ public class FloorManager : Singleton<FloorManager>
         //maxTile = TileScripts[new Point(map.Length - 1, map[0].Length - 1)].transform.position;
         //cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
 
-        SpawnPortals((int)map.Tiles.Last().Location.x);
         GeneratePath("level1");
+        SpawnPortals();
     }
 
     private bool IsWalkable(Sprite sprite)
@@ -88,10 +88,10 @@ public class FloorManager : Singleton<FloorManager>
         return JsonUtility.FromJson<Level>(mapAsset.text);
     }
 
-    private void SpawnPortals(int width)
+    private void SpawnPortals()
     {
-        start = new Point(0, 0);
-        finish = new Point(0, width - 3);
+        finish = FinalPath.Peek().GridPosition;
+        start = FinalPath.Last().GridPosition;
 
         StartPoint = Instantiate(startObject, TileScripts[start].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
         EndPoint = Instantiate(endObject, TileScripts[finish].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
