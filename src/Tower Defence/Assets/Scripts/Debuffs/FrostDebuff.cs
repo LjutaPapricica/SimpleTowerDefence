@@ -10,7 +10,9 @@ public class FrostDebuff : Debuff
 
     public FrostDebuff(float slowingFactor, float duration, Mob target) : base(target, duration)
     {
-        maxSpeed = target.Speed;
+        if (target != null)
+            maxSpeed = target.Speed;
+
         this.slowingFactor = slowingFactor;
     }
 
