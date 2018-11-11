@@ -15,7 +15,9 @@ public class TowerButton : MonoBehaviour
             return button;
         }
     }
-    
+
+    [SerializeField]
+    private Text priceText;
 
     [SerializeField]
     private int price;
@@ -31,6 +33,7 @@ public class TowerButton : MonoBehaviour
     void Start()
     {
         GameManager.Instance.OnCurrencyChanged += OnCurrencyChanged;
+        priceText.text = price + " $";
     }
 
     private void OnCurrencyChanged(object sender, System.EventArgs e)
