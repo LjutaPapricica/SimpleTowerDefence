@@ -22,9 +22,6 @@ public class FloorManager : Singleton<FloorManager>
     public KeyPoint StartPoint { get; set; }
     public KeyPoint EndPoint { get; set; }
 
-    private Point start;
-    private Point finish;
-
     public Stack<Node> FinalPath { get; set; }
 
     public Dictionary<Point, TileScript> TileScripts;
@@ -90,11 +87,11 @@ public class FloorManager : Singleton<FloorManager>
 
     private void SpawnPortals()
     {
-        finish = FinalPath.Peek().GridPosition;
-        start = FinalPath.Last().GridPosition;
+        Vector3 finish = FinalPath.Peek().WorldPosition;
+        Vector3 start = FinalPath.Last().WorldPosition;
 
-        StartPoint = Instantiate(startObject, TileScripts[start].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
-        EndPoint = Instantiate(endObject, TileScripts[finish].transform.position, Quaternion.identity).GetComponent<KeyPoint>();
+        StartPoint = Instantiate(startObject, start, Quaternion.identity).GetComponent<KeyPoint>();
+        EndPoint = Instantiate(endObject, finish, Quaternion.identity).GetComponent<KeyPoint>();
     }
 
     private void GeneratePath(string level)
