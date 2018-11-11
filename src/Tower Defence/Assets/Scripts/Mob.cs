@@ -73,7 +73,7 @@ public class Mob : MonoBehaviour
 
     private Direction direction = Direction.Right;
     private float angles;
-
+    
     private void Move()
     {
         if (IsActive)
@@ -84,7 +84,7 @@ public class Mob : MonoBehaviour
                 if (path != null && path.Count > 0)
                 {
                     if (DetermineRotation())
-                        StartCoroutine(Rotate());
+                       StartCoroutine(Rotate());
 
                     GridPosition = path.Peek().GridPosition;
                     destination = path.Pop().WorldPosition;
@@ -121,12 +121,14 @@ public class Mob : MonoBehaviour
                     {
                         direction = Direction.Down;
                         angles = -90;
+
                         return true;
                     }
                     else if (path.Peek().GridPosition.X < GridPosition.X)
                     {
                         direction = Direction.Up;
                         angles = 90;
+
                         return true;
                     }
                 }
@@ -139,12 +141,14 @@ public class Mob : MonoBehaviour
                     {
                         direction = Direction.Up;
                         angles = 90;
+
                         return true;
                     }
                     else if (path.Peek().GridPosition.X < GridPosition.X)
                     {
                         direction = Direction.Down;
                         angles = -90;
+
                         return true;
                     }
                 }
@@ -157,12 +161,14 @@ public class Mob : MonoBehaviour
                     {
                         direction = Direction.Right;
                         angles = 0;
+
                         return true;
                     }
                     else if (path.Peek().GridPosition.Y < GridPosition.Y)
                     {
                         direction = Direction.Left;
                         angles = 180;
+
                         return true;
                     }
                 }
@@ -175,12 +181,14 @@ public class Mob : MonoBehaviour
                     {
                         direction = Direction.Right;
                         angles = 0;
+
                         return true;
                     }
                     else if (path.Peek().GridPosition.Y < GridPosition.Y)
                     {
                         direction = Direction.Left;
                         angles = 180;
+
                         return true;
                     }
                 }
